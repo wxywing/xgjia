@@ -62,3 +62,7 @@ scripts/.indexnow_key
 
 # 日志文件
 *.log
+
+# 数据库迁移脚本（本地开发用，不上传）
+database/
+scripts/
