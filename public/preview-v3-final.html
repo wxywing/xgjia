@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信鸽之家 - 赛鸽数据查询平台 | 预览 v3</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ===== CSS Variables + Reset（取自 b-scheme.css） ===== */
+:root {
+    --primary: #1a5fa8; --primary-light: #2980b9; --primary-dark: #154360;
+    --accent: #c9a84c; --accent-light: #fef9e7;
+    --bg: #f4f6f9; --bg-dark: #1e2a3a; --white: #ffffff;
+    --text: #2c3e50; --text-light: #6c7a89; --text-lighter: #95a5b8;
+    --border: #e8ecf0; --border-light: #f0f3f6;
+    --shadow: 0 2px 12px rgba(26,95,168,0.07);
+    --shadow-hover: 0 8px 30px rgba(26,95,168,0.12);
+    --radius: 12px; --radius-sm: 8px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; }
+::selection { background: var(--primary); color: white; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== Navbar（取自 b-scheme.css） ===== */
+.navbar {
+    background: var(--white); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow);
+}
+.navbar-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px; max-width: 1200px; margin: 0 auto; padding: 0 20px;
+}
+.nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 22px; font-weight: 700; color: var(--primary); flex-shrink: 0; text-decoration: none;
+}
+.nav-logo i { font-size: 28px; color: var(--accent); }
+.nav-links { display: flex; gap: 35px; list-style: none; padding: 0; margin: 0; }
+.nav-links a {
+    font-size: 15px; font-weight: 500; color: var(--text);
+    transition: color 0.3s; padding: 6px 0;
+    border-bottom: 2px solid transparent; text-decoration: none;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--primary); border-bottom-color: var(--primary); }
+.nav-actions { display: flex; gap: 12px; flex-shrink: 0; align-items: center; }
+
+/* Nav Search */
+.nav-search { position: relative; display: flex; align-items: center; }
+.nav-search input {
+    width: 190px; height: 38px; padding: 0 38px 0 14px;
+    border: 2px solid var(--border); border-radius: 20px;
+    font-size: 13px; color: var(--text); background: var(--bg);
+    transition: all 0.3s; outline: none;
+}
+.nav-search input::placeholder { color: #b0b8c1; }
+.nav-search input:focus { width: 240px; border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 3px rgba(26,95,168,0.1); }
+.nav-search button {
+    position: absolute; right: 3px; top: 50%; transform: translateY(-50%);
+    width: 30px; height: 30px; border: none; background: var(--primary);
+    color: white; border-radius: 50%; cursor: pointer;
+    font-size: 12px; display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+}
+.nav-search button:hover { background: var(--primary-dark); }
+
+/* Nav Buttons */
+.nav-actions .btn {
+    padding: 8px 22px; border-radius: 8px; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.3s; border: none;
+    display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+}
+.nav-actions .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.nav-actions .btn-outline:hover { background: var(--primary); color: white; }
+.nav-actions .btn-primary { background: var(--primary); color: white; }
+.nav-actions .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+/* Nav Dropdown */
+.navbar-inner { overflow: visible; }
+.nav-dropdown { position: relative; }
+.nav-dropdown::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 10px; z-index: 1; }
+.nav-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%); background: #fff; border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15); min-width: 160px; padding: 8px 0; z-index: 1100;
+}
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a {
+    display: flex; align-items: center; gap: 8px; padding: 10px 18px;
+    color: var(--text); font-size: 14px; font-weight: 400; text-decoration: none;
+    white-space: nowrap; transition: background .15s; border-bottom: none !important;
+}
+.nav-dropdown-menu a:hover { background: #f0f4ff; color: var(--primary); }
+.nav-dropdown-menu a i { width: 18px; text-align: center; color: var(--text-lighter); }
+.nav-dropdown-menu a:hover i { color: var(--primary); }
+
+/* Hamburger */
+.hamburger { display: none; background: none; border: none; font-size: 24px; color: var(--text); cursor: pointer; padding: 8px; }
+
+/* Mobile Nav */
+.mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; }
+.mobile-nav.active { display: block; }
+.mobile-nav-panel {
+    position: absolute; top: 0; left: 0; bottom: 0; width: 280px;
+    background: var(--white); transform: translateX(-100%); transition: transform 0.3s; overflow-y: auto;
+}
+.mobile-nav.active .mobile-nav-panel { transform: translateX(0); }
+.mobile-nav-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px; border-bottom: 1px solid var(--border);
+}
+.mobile-nav-header .nav-logo { font-size: 18px; }
+.mobile-nav-close { background: none; border: none; font-size: 24px; color: var(--text); cursor: pointer; }
+.mobile-nav-links { padding: 15px 0; }
+.mobile-nav-links a {
+    display: block; padding: 14px 24px; font-size: 16px;
+    color: var(--text); border-bottom: 1px solid var(--border); text-decoration: none;
+}
+.mobile-nav-links a:hover, .mobile-nav-links a.active { background: var(--bg); color: var(--primary); }
+.mobile-nav-actions { padding: 15px 24px; }
+.mobile-nav-actions .btn {
+    width: 100%; justify-content: center; padding: 10px 22px; font-size: 15px;
+    border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+    border: none; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+}
+.mobile-nav-actions .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.mobile-nav-actions .btn-outline:hover { background: var(--primary); color: white; }
+.mobile-nav-actions .btn-primary { background: var(--primary); color: white; }
+.mobile-nav-actions .btn-primary:hover { background: var(--primary-dark); }
+
+/* ===== Footer（取自 b-scheme.css） ===== */
+.footer {
+    background: var(--white); border-top: 1px solid var(--border);
+    padding: 50px 0 20px; margin-top: 60px;
+}
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 35px; }
+.footer-brand h3 { font-size: 20px; margin-bottom: 12px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+.footer-brand h3 i { color: var(--accent); }
+.footer-brand p { font-size: 13px; color: var(--text-light); line-height: 1.9; }
+.footer-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col li { margin-bottom: 10px; }
+.footer-col a { font-size: 13px; color: var(--text-light); transition: color 0.3s; text-decoration: none; }
+.footer-col a:hover { color: var(--primary); }
+.footer-bottom {
+    border-top: 1px solid var(--border); padding-top: 20px;
+    text-align: center; font-size: 12px; color: var(--text-light);
+}
+.footer-bottom a { color: var(--text-light); text-decoration: none; }
+.footer-bottom a:hover { color: var(--primary); }
+
+/* ===== Navbar/Footer Mobile ===== */
+@media (max-width: 768px) {
+    .nav-links, .nav-actions { display: none; }
+    .hamburger { display: block; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 25px; }
+    .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 12px; }
+}
+
+/* ==========================================
+   首页内容区（v1 设计）+ 内联页头页脚
+   ========================================== */
+.badge-new { display: inline-block; background: #e74c3c; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: middle; font-weight: 600; }
+
+/* Hero */
+.hero-v2 {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1b3a5c 50%, #0d2137 100%);
+  color: #fff; padding: 50px 0 56px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero-v2::before { content: ""; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(26,95,168,0.15) 0%, transparent 70%); border-radius: 50%; }
+.hero-v2::after { content: ""; position: absolute; bottom: -30%; left: -15%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%); border-radius: 50%; }
+.hero-v2 * { position: relative; z-index: 1; }
+.hero-v2-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+.hero-v2 h1 { font-size: 40px; font-weight: 900; letter-spacing: 2px; margin-bottom: 12px; }
+.hero-v2 h1 em { font-style: normal; color: var(--accent); }
+.hero-v2-desc { font-size: 16px; color: rgba(255,255,255,0.65); margin-bottom: 32px; letter-spacing: 1px; }
+.hero-v2-desc b { color: rgba(255,255,255,0.85); }
+
+/* Search */
+.hero-v2-search { max-width: 680px; margin: 0 auto 20px; }
+.hero-v2-search-box { display: flex; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.25); }
+.hero-v2-search-box input { flex: 1; border: none; padding: 16px 20px; font-size: 16px; outline: none; color: var(--text); min-width: 0; }
+.hero-v2-search-box input::placeholder { color: var(--text-lighter); }
+.hero-v2-search-box button { background: var(--primary); color: #fff; border: none; padding: 16px 32px; font-size: 16px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background .2s; }
+.hero-v2-search-box button:hover { background: var(--primary-dark); }
+.hero-v2-search-hint { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 10px; }
+
+/* Tool Cards */
+.hero-v2-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 780px; margin: 0 auto; }
+.hero-v2-tool { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 20px; text-align: left; transition: all .2s; cursor: pointer; text-decoration: none; color: #fff; display: block; }
+.hero-v2-tool:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); transform: translateY(-2px); }
+.hero-v2-tool.disabled { opacity: 0.4; cursor: default; }
+.hero-v2-tool.disabled:hover { background: rgba(255,255,255,0.08); transform: none; }
+.hero-v2-tool-icon { font-size: 28px; margin-bottom: 8px; }
+.hero-v2-tool h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.hero-v2-tool p { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.4; margin: 0; }
+
+/* Stats */
+.stats-row-v2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 10px; }
+.stat-card-v2 { background: var(--white); border-radius: var(--radius-sm); padding: 24px 20px; text-align: center; box-shadow: var(--shadow); }
+.stat-num-v2 { font-size: 32px; font-weight: 900; color: var(--primary); line-height: 1.2; }
+.stat-label-v2 { font-size: 13px; color: var(--text-lighter); margin-top: 4px; }
+.stats-note-v2 { text-align: center; font-size: 12px; color: var(--text-lighter); margin-top: 14px; }
+
+/* Quick Links */
+.quick-grid-v2 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.quick-item-v2 { background: var(--white); border-radius: var(--radius-sm); padding: 16px 10px; text-align: center; box-shadow: var(--shadow); transition: all .2s; text-decoration: none; display: block; }
+.quick-item-v2:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.quick-item-v2 .qi-icon { font-size: 24px; margin-bottom: 6px; }
+.quick-item-v2 .qi-name { font-size: 13px; font-weight: 600; color: var(--text); }
+
+/* Two Column */
+.two-col-v2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+/* List Cards */
+.list-card { background: var(--white); border-radius: var(--radius-sm); box-shadow: var(--shadow); overflow: hidden; }
+.list-card-body { padding: 16px 20px; }
+.list-item-v2 { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); text-decoration: none; }
+.list-item-v2:last-child { border-bottom: none; }
+.list-item-rank { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.list-item-rank.gold { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.list-item-rank.silver { background: linear-gradient(135deg, #94a3b8, #64748b); }
+.list-item-rank.bronze { background: linear-gradient(135deg, #d97706, #b45309); }
+.list-item-rank.num { background: var(--text-lighter); }
+.list-item-info { flex: 1; min-width: 0; }
+.list-item-title { font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.list-item-sub { font-size: 12px; color: var(--text-lighter); margin-top: 2px; }
+
+/* Pigeon Mini */
+.pigeon-mini-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.pigeon-mini-item { text-align: center; text-decoration: none; }
+.pigeon-mini-item .pm-icon { width: 60px; height: 60px; border-radius: var(--radius-sm); background: #f0f4ff; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 28px; }
+.pigeon-mini-item .pm-name { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Article */
+.art-row-v2 { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; }
+.art-row-v2:last-child { border-bottom: none; }
+.art-thumb-v2 { width: 80px; height: 56px; border-radius: 6px; background: #f0f4ff; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.art-body-v2 { flex: 1; min-width: 0; }
+.art-title-v2 { font-size: 14px; font-weight: 600; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.art-meta-v2 { font-size: 11px; color: var(--text-lighter); margin-top: 4px; }
+
+/* Section headings */
+.home-section { padding: 36px 0; }
+.home-section-alt { padding: 36px 0; background: var(--white); }
+.home-sec-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.home-sec-head h2 { font-size: 20px; font-weight: 800; color: var(--text); margin: 0; }
+.home-sec-head a { font-size: 13px; color: var(--primary); font-weight: 600; text-decoration: none; }
+
+/* ===== 内容区 Mobile ===== */
+@media (max-width: 768px) {
+  .hero-v2 { padding: 32px 0 40px; }
+  .hero-v2 h1 { font-size: 26px; }
+  .hero-v2-desc { font-size: 14px; }
+  .hero-v2-search-box input { font-size: 15px; padding: 14px; }
+  .hero-v2-search-box button { padding: 14px 20px; font-size: 14px; }
+  .hero-v2-tools { grid-template-columns: 1fr; }
+  .stats-row-v2 { grid-template-columns: repeat(2, 1fr); }
+  .quick-grid-v2 { grid-template-columns: repeat(4, 1fr); }
+  .two-col-v2 { grid-template-columns: 1fr; }
+  .pigeon-mini-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .hero-v2 h1 { font-size: 22px; }
+  .quick-grid-v2 { grid-template-columns: repeat(3, 1fr); }
+  .hero-v2-search-box button { padding: 14px 16px; }
+}
+@media (max-width: 768px) {
+  .nav-dropdown-menu { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR（与 _head.php 一致） ===== -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="/" class="nav-logo"><i class="fas fa-dove"></i><span>信鸽<small style="font-size:0.55em;vertical-align:middle;">之</small>家</span></a>
+        <ul class="nav-links">
+            <li><a href="/" class="active">首页</a></li>
+            <li><a href="/pigeon/">铭鸽</a></li>
+            <li><a href="/shop/">展厅</a></li>
+            <li><a href="/loft/">公棚</a></li>
+            <li class="nav-dropdown">
+                <a href="/pedigree/" class="nav-dropdown-toggle">血统 <i class="fas fa-angle-down"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="/pedigree/"><i class="fas fa-dna"></i> 品系大全</a>
+                    <a href="/pedigree/certificate/"><i class="fas fa-certificate"></i> 血统证书</a>
+                </div>
+            </li>
+            <li class="nav-dropdown">
+                <a href="/race/" class="nav-dropdown-toggle">赛事成绩 <i class="fas fa-angle-down"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="/race/"><i class="fas fa-list"></i> 全部赛事</a>
+                    <a href="/race/browse/"><i class="fas fa-th-list"></i> 赛事大全</a>
+                    <a href="/race/season/2026/"><i class="fas fa-chart-bar"></i> 赛季总结</a>
+                    <a href="/race/champion/"><i class="fas fa-crown"></i> 冠军鸽</a>
+                    <a href="/race/city/"><i class="fas fa-city"></i> 城市赛事</a>
+                    <a href="/race/province/"><i class="fas fa-map-marked-alt"></i> 省份聚合</a>
+                </div>
+            </li>
+            <li><a href="/article/">资讯</a></li>
+            <li><a href="/dynamic/">鸽友圈</a></li>
+        </ul>
+        <div class="nav-actions">
+            <form action="/search/" method="GET" class="nav-search">
+                <input type="text" name="q" placeholder="搜索铭鸽、公棚、资讯...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <a href="/auth?action=login" class="btn btn-outline">登录</a>
+            <a href="/auth?action=register" class="btn btn-primary">注册</a>
+        </div>
+        <button class="hamburger" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-panel">
+        <div class="mobile-nav-header">
+            <a href="/" class="nav-logo"><i class="fas fa-dove"></i><span>信鸽<small style="font-size:0.55em;vertical-align:middle;">之</small>家</span></a>
+            <button class="mobile-nav-close" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="mobile-nav-links">
+            <a href="/" class="active">首页</a>
+            <a href="/pigeon/">铭鸽</a>
+            <a href="/shop/">展厅</a>
+            <a href="/loft/">公棚</a>
+            <a href="/pedigree/">血统品系</a>
+            <a href="/pedigree/certificate/" style="font-size:13px;padding-left:32px;color:#95a5b8;border-bottom:none;"><i class="fas fa-certificate" style="font-size:11px;"></i> 血统证书</a>
+            <a href="/race/">赛事成绩</a>
+            <a href="/race/browse/" style="font-size:13px;padding-left:32px;color:#95a5b8;border-bottom:none;"><i class="fas fa-th-list" style="font-size:11px;"></i> 赛事大全</a>
+            <a href="/race/season/2026/" style="font-size:13px;padding-left:32px;color:#95a5b8;border-bottom:none;"><i class="fas fa-chart-bar" style="font-size:11px;"></i> 赛季总结</a>
+            <a href="/race/champion/" style="font-size:13px;padding-left:32px;color:#95a5b8;border-bottom:none;"><i class="fas fa-crown" style="font-size:11px;"></i> 冠军鸽</a>
+            <a href="/race/city/" style="font-size:13px;padding-left:32px;color:#95a5b8;border-bottom:none;"><i class="fas fa-city" style="font-size:11px;"></i> 城市赛事</a>
+            <a href="/race/province/" style="font-size:13px;padding-left:32px;color:#95a5b8;"><i class="fas fa-map-marked-alt" style="font-size:11px;"></i> 省份聚合</a>
+            <a href="/article/">资讯</a>
+            <a href="/dynamic/">鸽友圈</a>
+        </div>
+        <div class="mobile-nav-actions">
+            <a href="/auth?action=login" class="btn btn-outline" style="width:100%;justify-content:center;margin-bottom:10px;">登录</a>
+            <a href="/auth?action=register" class="btn btn-primary" style="width:100%;justify-content:center;">注册</a>
+        </div>
+    </div>
+</div>
+
+<!-- ===== HERO（v1 设计） ===== -->
+<section class="hero-v2">
+  <div class="container">
+    <div class="hero-v2-badge"><i class="fas fa-chart-line"></i> 赛鸽数据分析平台</div>
+    <h1>赛鸽数据<em>，</em>一查便知</h1>
+    <p class="hero-v2-desc">深度赛绩分析 &nbsp;·&nbsp; 血统证书生成 &nbsp;·&nbsp; 公棚横向对比<br><b>基于全国公棚真实赛事数据，做赛鸽界的"企查查"</b></p>
+
+    <div class="hero-v2-search">
+      <div class="hero-v2-search-box">
+        <input type="text" placeholder="输入足环号查赛绩 · 或搜公棚名 / 鸽主姓名">
+        <button><i class="fas fa-search"></i> 查赛绩</button>
+      </div>
+      <div class="hero-v2-search-hint">
+        <i class="fas fa-database"></i> 实时查询 559 家公棚 · 1,444 场2026赛季 · 超千万条成绩记录
+      </div>
+    </div>
+
+    <div class="hero-v2-tools">
+      <a href="/race/report/" class="hero-v2-tool">
+        <div class="hero-v2-tool-icon">📊</div>
+        <h3>深度赛绩报告</h3>
+        <p>输入足环号 · 自动生成完整赛绩分析报告</p>
+      </a>
+      <a href="/pedigree/certificate/" class="hero-v2-tool">
+        <div class="hero-v2-tool-icon">📜</div>
+        <h3>血统证书生成</h3>
+        <p>一键填入信息 · 生成可打印血统证书</p>
+      </a>
+      <div class="hero-v2-tool disabled">
+        <div class="hero-v2-tool-icon">🏠</div>
+        <h3>公棚对比工具 <span class="badge-new">即将上线</span></h3>
+        <p>横向对比全国公棚 · 数据决策参考</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 数据看板 ===== -->
+<section class="home-section" style="padding-top: 32px;">
+  <div class="container">
+    <div class="stats-row-v2">
+      <div class="stat-card-v2"><div class="stat-num-v2">559</div><div class="stat-label-v2">收录公棚</div></div>
+      <div class="stat-card-v2"><div class="stat-num-v2">1,444</div><div class="stat-label-v2">2026赛季赛事</div></div>
+      <div class="stat-card-v2"><div class="stat-num-v2">1,274<small style="font-size:16px">万</small></div><div class="stat-label-v2">成绩记录</div></div>
+      <div class="stat-card-v2"><div class="stat-num-v2">10,359</div><div class="stat-label-v2">收录铭鸽</div></div>
+    </div>
+    <div class="stats-note-v2"><i class="fas fa-sync-alt fa-spin" style="margin-right:4px;"></i>数据来自全国公棚赛事平台，持续更新中</div>
+  </div>
+</section>
+
+<!-- ===== 快捷入口 ===== -->
+<section class="home-section" style="padding-top: 20px;">
+  <div class="container">
+    <div class="home-sec-head"><h2><i class="fas fa-compass" style="color:var(--primary);"></i> 快捷入口</h2></div>
+    <div class="quick-grid-v2">
+      <a href="/race/champion/" class="quick-item-v2"><div class="qi-icon">🏆</div><div class="qi-name">冠军鸽</div></a>
+      <a href="/race/season/2026/" class="quick-item-v2"><div class="qi-icon">📊</div><div class="qi-name">赛季总结</div></a>
+      <a href="/race/city/" class="quick-item-v2"><div class="qi-icon">🏙️</div><div class="qi-name">城市赛事</div></a>
+      <a href="/race/province/" class="quick-item-v2"><div class="qi-icon">📍</div><div class="qi-name">省份聚合</div></a>
+      <a href="/pigeon/" class="quick-item-v2"><div class="qi-icon">🕊️</div><div class="qi-name">铭鸽展厅</div></a>
+      <a href="/loft/" class="quick-item-v2"><div class="qi-icon">🏠</div><div class="qi-name">公棚大全</div></a>
+      <a href="/pedigree/" class="quick-item-v2"><div class="qi-icon">🧬</div><div class="qi-name">血统品系</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 两栏：热门公棚 + 铭鸽/资讯 ===== -->
+<section class="home-section-alt">
+  <div class="container">
+    <div class="two-col-v2">
+      <div>
+        <div class="home-sec-head"><h2><i class="fas fa-building" style="color:var(--accent);"></i> 热门公棚</h2><a href="/loft/">查看全部 →</a></div>
+        <div class="list-card">
+          <div class="list-card-body">
+            <a href="/loft/" class="list-item-v2"><span class="list-item-rank gold">1</span><div class="list-item-info"><div class="list-item-title">北京翱翔赛鸽公棚</div><div class="list-item-sub"><i class="fas fa-map-marker-alt"></i> 北京 · 决赛500km</div></div></a>
+            <a href="/loft/" class="list-item-v2"><span class="list-item-rank silver">2</span><div class="list-item-info"><div class="list-item-title">上海聚鑫阁赛鸽俱乐部</div><div class="list-item-sub"><i class="fas fa-map-marker-alt"></i> 上海 · 决赛550km</div></div></a>
+            <a href="/loft/" class="list-item-v2"><span class="list-item-rank bronze">3</span><div class="list-item-info"><div class="list-item-title">天津宇航赛鸽公棚</div><div class="list-item-sub"><i class="fas fa-map-marker-alt"></i> 天津 · 决赛500km</div></div></a>
+            <a href="/loft/" class="list-item-v2"><span class="list-item-rank num">4</span><div class="list-item-info"><div class="list-item-title">广东浩和赛鸽俱乐部</div><div class="list-item-sub"><i class="fas fa-map-marker-alt"></i> 广东 · 决赛500km</div></div></a>
+            <a href="/loft/" class="list-item-v2"><span class="list-item-rank num">5</span><div class="list-item-info"><div class="list-item-title">河北海逸赛鸽公棚</div><div class="list-item-sub"><i class="fas fa-map-marker-alt"></i> 河北 · 决赛500km</div></div></a>
+            <a href="/loft/" class="list-item-v2"><span class="list-item-rank num">6</span><div class="list-item-info"><div class="list-item-title">四川成都国奥赛鸽公棚</div><div class="list-item-sub"><i class="fas fa-map-marker-alt"></i> 四川 · 决赛480km</div></div></a>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div>
+          <div class="home-sec-head"><h2><i class="fas fa-dove" style="color:var(--primary);"></i> 热门铭鸽</h2><a href="/pigeon/">查看全部 →</a></div>
+          <div class="list-card">
+            <div class="list-card-body">
+              <div class="pigeon-mini-row">
+                <a href="/pigeon/" class="pigeon-mini-item"><div class="pm-icon">🕊️</div><div class="pm-name">闪电号</div></a>
+                <a href="/pigeon/" class="pigeon-mini-item"><div class="pm-icon">🦅</div><div class="pm-name">冠军号</div></a>
+                <a href="/pigeon/" class="pigeon-mini-item"><div class="pm-icon">🏆</div><div class="pm-name">花木兰</div></a>
+                <a href="/pigeon/" class="pigeon-mini-item"><div class="pm-icon">⭐</div><div class="pm-name">詹森019</div></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="home-sec-head"><h2><i class="fas fa-newspaper" style="color:var(--accent);"></i> 最新资讯</h2><a href="/article/">更多 →</a></div>
+          <div class="list-card">
+            <div class="list-card-body">
+              <a href="/article/" class="art-row-v2"><div class="art-thumb-v2">📰</div><div class="art-body-v2"><div class="art-title-v2">2026年春季公棚决赛全面开启，全国127场赛事同步推进</div><div class="art-meta-v2">3天前 · 1,280 阅读</div></div></a>
+              <a href="/article/" class="art-row-v2"><div class="art-thumb-v2">📋</div><div class="art-body-v2"><div class="art-title-v2">赛鸽品系深度解析：詹森、盖比、杨阿滕血统特点对比</div><div class="art-meta-v2">5天前 · 960 阅读</div></div></a>
+              <a href="/article/" class="art-row-v2"><div class="art-thumb-v2">🏆</div><div class="art-body-v2"><div class="art-title-v2">如何通过赛事数据筛选优质赛鸽？数据分析师教你三招</div><div class="art-meta-v2">7天前 · 2,430 阅读</div></div></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER（与 _footer.php 一致） ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3><i class="fas fa-dove"></i> 信鸽之家</h3>
+                <p>赛鸽数据查询平台，为鸽友提供深度赛绩分析、血统证书生成、公棚数据对比等工具服务。</p>
+            </div>
+            <div class="footer-col">
+                <h4>关于</h4>
+                <ul><li><a href="/pages/about/">关于我们</a></li><li><a href="/pages/contact/">联系我们</a></li><li><a href="/pages/ad/">广告合作</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>帮助支持</h4>
+                <ul><li><a href="/pages/help/">帮助中心</a></li><li><a href="/pages/faq/">常见问题</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>服务项目</h4>
+                <ul><li><a href="/pigeon/create/">铭鸽发布</a></li><li><a href="/user/membership/">会员中心</a></li></ul>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 信鸽之家. All Rights Reserved.</p></div>
+    </div>
+</footer>
+
+<script>
+function toggleMobileNav() {
+    var nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+}
+document.getElementById('mobileNav').addEventListener('click', function(e) {
+    if (e.target === this) toggleMobileNav();
+});
+</script>
+
+</body>
+</html>

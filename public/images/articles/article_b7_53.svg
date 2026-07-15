@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A1223"/>
+      <stop offset="100%" style="stop-color:#1A5FA8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+
+  <!-- DNA双螺旋/配对图标 -->
+  <g transform="translate(550, 160)">
+    <ellipse cx="0" cy="0" rx="100" ry="80" fill="#C9A84C" opacity="0.1"/>
+    <!-- 双螺旋 -->
+    <path d="M-50,-60 Q-30,-30 -50,0 Q-30,30 -50,60" stroke="#C9A84C" stroke-width="5" fill="none" opacity="0.7"/>
+    <path d="M50,-60 Q30,-30 50,0 Q30,30 50,60" stroke="#C9A84C" stroke-width="5" fill="none" opacity="0.7"/>
+    <!-- 连接线 -->
+    <line x1="-45" y1="-45" x2="45" y2="-45" stroke="#C9A84C" stroke-width="2" opacity="0.5"/>
+    <line x1="-45" y1="0" x2="45" y2="0" stroke="#C9A84C" stroke-width="2" opacity="0.5"/>
+    <line x1="-45" y1="45" x2="45" y2="45" stroke="#C9A84C" stroke-width="2" opacity="0.5"/>
+    <!-- 节点 -->
+    <circle cx="-45" cy="-45" r="6" fill="#C9A84C" opacity="0.8"/>
+    <circle cx="45" cy="-45" r="6" fill="#C9A84C" opacity="0.8"/>
+    <circle cx="-45" cy="0" r="6" fill="#C9A84C" opacity="0.8"/>
+    <circle cx="45" cy="0" r="6" fill="#C9A84C" opacity="0.8"/>
+    <circle cx="-45" cy="45" r="6" fill="#C9A84C" opacity="0.8"/>
+    <circle cx="45" cy="45" r="6" fill="#C9A84C" opacity="0.8"/>
+  </g>
+
+  <!-- 标题 -->
+  <text x="60" y="160" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF">赛鸽配对</text>
+  <text x="60" y="220" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" fill="#C9A84C">实战经验</text>
+
+  <!-- 关键词标签 -->
+  <rect x="60" y="280" width="120" height="36" rx="18" fill="#C9A84C" opacity="0.3"/>
+  <text x="120" y="305" font-family="PingFang SC, sans-serif" font-size="16" fill="#FFFFFF" text-anchor="middle">互补原则</text>
+
+  <rect x="200" y="280" width="120" height="36" rx="18" fill="#C9A84C" opacity="0.3"/>
+  <text x="260" y="305" font-family="PingFang SC, sans-serif" font-size="16" fill="#FFFFFF" text-anchor="middle">配对方法</text>
+
+  <rect x="340" y="280" width="120" height="36" rx="18" fill="#C9A84C" opacity="0.3"/>
+  <text x="400" y="305" font-family="PingFang SC, sans-serif" font-size="16" fill="#FFFFFF" text-anchor="middle">育雏管理</text>
+
+  <!-- 底栏 -->
+  <rect x="0" y="450" width="800" height="50" fill="#000000" opacity="0.3"/>
+  <text x="60" y="482" font-family="PingFang SC, sans-serif" font-size="18" fill="#C9A84C">信鸽之家</text>
+  <text x="740" y="482" font-family="PingFang SC, sans-serif" font-size="16" fill="#999999" text-anchor="end">xgjia.com</text>
+</svg>

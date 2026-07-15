@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a237e"/>
+      <stop offset="100%" style="stop-color:#2a0a4a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a84c"/>
+      <stop offset="100%" style="stop-color:#ffd700"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="0" y="0" width="800" height="4" fill="url(#gold)"/>
+  <text x="400" y="110" font-family="Arial" font-size="28" font-weight="bold" fill="#ffd700" text-anchor="middle">永 恒 鸽 苑</text>
+  <text x="400" y="160" font-family="Arial" font-size="20" fill="#fff" text-anchor="middle">周广来 · 跨棚双冠王</text>
+  <rect x="140" y="180" width="520" height="3" fill="#c9a84c"/>
+  <rect x="100" y="220" width="260" height="110" rx="8" fill="rgba(255,215,0,0.1)" stroke="#c9a84c" stroke-width="1.5"/>
+  <text x="230" y="255" font-family="Arial" font-size="16" font-weight="bold" fill="#ffd700" text-anchor="middle">河北陆翔国际公棚</text>
+  <text x="230" y="280" font-family="Arial" font-size="13" fill="rgba(255,255,255,0.8)" text-anchor="middle">550km加站赛 ★ 冠军</text>
+  <text x="230" y="305" font-family="Arial" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle">1666.3</text>
+  <text x="230" y="322" font-family="Arial" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle">4210羽参赛</text>
+  <rect x="440" y="220" width="260" height="110" rx="8" fill="rgba(255,215,0,0.1)" stroke="#c9a84c" stroke-width="1.5"/>
+  <text x="570" y="255" font-family="Arial" font-size="16" font-weight="bold" fill="#ffd700" text-anchor="middle">黄骅展翔赛鸽公棚</text>
+  <text x="570" y="280" font-family="Arial" font-size="13" fill="rgba(255,255,255,0.8)" text-anchor="middle">194km冠军 ★ 1605.8</text>
+  <text x="570" y="305" font-family="Arial" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle">1605.8</text>
+  <text x="570" y="322" font-family="Arial" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle">10463羽参赛</text>
+  <text x="400" y="385" font-family="Arial" font-size="14" fill="rgba(255,255,255,0.7)" text-anchor="middle">194km → 550km · 跨倍距 · 两棚双冠</text>
+  <text x="400" y="430" font-family="Arial" font-size="12" fill="rgba(255,255,255,0.35)" text-anchor="middle">河北陆翔500km决赛107名 + 黄骅展翔486km决赛236名</text>
+  <text x="400" y="465" font-family="Arial" font-size="12" fill="rgba(255,255,255,0.3)" text-anchor="middle">信鸽之家 · 数据为本</text>
+</svg>

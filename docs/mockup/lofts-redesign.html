@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公棚大全 · 信鸽之家</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f4f6f9;color:#1f2937;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+:root{--primary:#1e3a8a;--primary-light:#3b82f6;--primary-bg:#eff6ff;--accent:#f97316;--accent-bg:#fffbeb;--bg:#f4f6f9;--card:#fff;--text:#1f2937;--text2:#6b7280;--text3:#9ca3af;--border:#e5e7eb;--green:#10b981;--green-bg:#ecfdf5;--shadow:0 1px 3px rgba(0,0,0,.07);--shadow-md:0 4px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 24px rgba(0,0,0,.1)}
+
+/* ===== Hero ===== */
+.hero{background:linear-gradient(135deg,var(--primary) 0%,#2563eb 60%,#3b82f6 100%);color:#fff;padding:64px 20px 56px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 60%,rgba(255,255,255,.06) 0%,transparent 50%);pointer-events:none}
+.hero h1{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-1px;position:relative;z-index:1}
+.hero p{font-size:15px;opacity:.8;margin-top:10px;position:relative;z-index:1;max-width:440px;margin-inline:auto}
+
+/* ===== Layout ===== */
+.main-layout{max-width:1280px;margin:0 auto;padding:24px 20px;display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start}
+.main-content{min-width:0}
+.sidebar{display:flex;flex-direction:column;gap:18px}
+
+/* ===== Filter ===== */
+.filter-bar{background:var(--card);border-radius:12px;padding:14px 18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:28px;border:1px solid var(--border)}
+.filter-label{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.filter-tag{padding:5px 14px;border-radius:20px;font-size:13px;color:var(--text2);background:#f3f4f6;transition:all .2s;white-space:nowrap;font-weight:500}
+.filter-tag:hover,.filter-tag.active{background:var(--primary);color:#fff}
+.filter-more{position:relative}
+.filter-more-btn{padding:5px 14px;border-radius:20px;font-size:13px;color:var(--primary);background:var(--primary-bg);border:none;cursor:pointer;font-weight:600;white-space:nowrap;font-family:inherit}
+.filter-more-btn:hover{background:var(--primary);color:#fff}
+.filter-dropdown{display:none;position:absolute;top:100%;left:0;margin-top:6px;background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-lg);padding:8px;min-width:160px;max-height:180px;overflow-y:auto;z-index:30;columns:2;column-gap:4px}
+.filter-more:hover .filter-dropdown{display:block}
+.filter-dropdown a{display:block;padding:5px 10px;border-radius:6px;font-size:12px;color:var(--text2);break-inside:avoid}
+.filter-dropdown a:hover{background:var(--primary-bg);color:var(--primary)}
+.filter-spacer{flex:1}
+.filter-search{position:relative}
+.filter-search input{padding:7px 12px 7px 32px;border:1px solid var(--border);border-radius:20px;font-size:13px;width:160px;outline:none;font-family:inherit;transition:border-color .2s}
+.filter-search input:focus{border-color:var(--primary);width:200px}
+.filter-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3)}
+
+/* ===== Section Headers ===== */
+.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px}
+.section-header h2{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.section-header .more{font-size:13px;color:var(--accent);font-weight:600}
+
+/* ===== Hot Cards ===== */
+.hot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:36px}
+.hot-card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:box-shadow .25s,transform .25s}
+.hot-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px);border-color:#c7d2fe}
+.hot-card-body{padding:18px 18px 12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.hot-card-body h3{font-size:15px;font-weight:700;line-height:1.35}
+.hot-card-body h3 a{color:var(--text)}
+.hot-card-body h3 a:hover{color:var(--primary)}
+.hot-card-loc{font-size:12px;color:var(--text3)}
+.hot-card-badges{display:flex;gap:5px;flex-wrap:wrap}
+.hot-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:4px}
+.hot-card-stats div{display:flex;justify-content:space-between;align-items:center}
+.hot-card-stats span{font-size:11px;color:var(--text3)}
+.hot-card-stats strong{font-size:12px;font-weight:700}
+.hot-card-stats .acc{color:var(--accent)}
+.hot-card-btn{display:block;text-align:center;padding:9px;background:var(--primary-bg);color:var(--primary);font-size:13px;font-weight:600;transition:all .2s;border-top:1px solid var(--border)}
+.hot-card-btn:hover{background:var(--primary);color:#fff}
+
+/* ===== Badges ===== */
+.badge{display:inline-flex;align-items:center;gap:2px;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;line-height:1.7}
+.badge-type{background:var(--primary-bg);color:var(--primary);border:1px solid rgba(59,130,246,.15)}
+.badge-cert{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,.15)}
+.badge-prize{background:var(--accent-bg);color:var(--accent);border:1px solid rgba(249,115,22,.15)}
+
+/* ===== List View ===== */
+.loft-list{display:flex;flex-direction:column}
+.list-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid var(--border);transition:background .15s;font-size:14px}
+.list-row:hover{background:var(--primary-bg)}
+.list-row:last-child{border-bottom:none}
+.list-rank{font-size:12px;flex-shrink:0;min-width:72px}
+.list-name{flex:1;font-weight:600;color:var(--text);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list-loc{font-size:12px;color:var(--text3);flex-shrink:0;white-space:nowrap}
+.list-arrow{color:var(--text3);font-size:13px;flex-shrink:0;transition:all .2s}
+.list-row:hover .list-arrow{color:var(--primary);transform:translateX(3px)}
+.list-row:hover .list-name{color:var(--primary)}
+
+/* ===== Pagination ===== */
+.pagination{display:flex;justify-content:center;align-items:center;gap:4px;padding:20px 0}
+.pagination a,.pagination span{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;border-radius:8px;font-size:13px;font-weight:500;transition:all .2s}
+.pagination a{color:var(--text2);background:var(--card);box-shadow:var(--shadow);border:1px solid var(--border)}
+.pagination a:hover,.pagination span.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.pagination span.disabled{color:var(--text3);opacity:.4}
+.pagination-note{text-align:center;font-size:12px;color:var(--text3);margin-top:4px}
+
+/* ===== Sidebar Panels ===== */
+.side-panel{background:var(--card);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden}
+.side-panel-header{padding:14px 16px;font-size:14px;font-weight:700;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.side-panel-body{padding:8px 0}
+.side-panel-body ul{list-style:none}
+.side-panel-body li{}
+.side-panel-body li a{display:flex;flex-direction:column;padding:10px 16px;transition:background .15s;gap:2px}
+.side-panel-body li a:hover{background:var(--primary-bg)}
+.side-panel-body li + li{border-top:1px solid #f3f4f6}
+
+/* Champ panel */
+.champ-loft{font-size:13px;font-weight:600;color:var(--text)}
+.champ-meta{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Article panel */
+.art-title{font-size:13px;font-weight:500;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.art-date{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* Pigeon panel */
+.pig-name{font-size:13px;font-weight:600;color:var(--text)}
+.pig-meta{font-size:11px;color:var(--text3)}
+
+/* Season stats panel */
+.season-stats{display:grid;grid-template-columns:1fr;gap:10px;padding:14px 16px}
+.season-stat{text-align:center;padding:10px;background:#f9fafb;border-radius:8px}
+.season-stat .num{font-size:22px;font-weight:800;color:var(--primary)}
+.season-stat .lbl{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* Footer */
+.footer{text-align:center;padding:28px;color:var(--text3);font-size:13px;border-top:1px solid var(--border);background:var(--card);margin-top:32px}
+.footer a{color:var(--primary);font-weight:500}
+
+/* ===== Mobile ===== */
+@media(max-width:768px){
+  .main-layout{grid-template-columns:1fr;padding:16px}
+  .sidebar{order:2}
+  .hero{padding:40px 16px}
+  .hot-grid{grid-template-columns:1fr;gap:12px}
+  .list-row{gap:10px;padding:12px 10px}
+  .list-rank{min-width:60px;font-size:11px}
+  .list-name{font-size:13px}
+  .list-loc{display:none}
+  .filter-search input{width:120px}
+  .filter-search input:focus{width:140px}
+  .filter-more .filter-dropdown{right:0;left:auto}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>🏠 全国公棚信息大全</h1>
+  <p>参赛费用 · 赛事数据 · 综合评分，帮您找到心仪的公棚</p>
+</section>
+
+<div class="main-layout">
+  <div class="main-content">
+
+    <!-- Filter -->
+    <div class="filter-bar">
+      <span class="filter-label">📍 地区</span>
+      <a href="/loft/" class="filter-tag active">全部</a>
+      <a href="/loft/?province=上海" class="filter-tag">上海</a><a href="/loft/?province=云南" class="filter-tag">云南</a><a href="/loft/?province=内蒙古" class="filter-tag">内蒙古</a><a href="/loft/?province=北京" class="filter-tag">北京</a><a href="/loft/?province=吉林" class="filter-tag">吉林</a><a href="/loft/?province=四川" class="filter-tag">四川</a><a href="/loft/?province=天津" class="filter-tag">天津</a><a href="/loft/?province=宁夏" class="filter-tag">宁夏</a>
+      <div class="filter-more"><button class="filter-more-btn">更多 ▼</button><div class="filter-dropdown"><a href="/loft/?province=安徽">安徽</a><a href="/loft/?province=山东">山东</a><a href="/loft/?province=山西">山西</a><a href="/loft/?province=广东">广东</a><a href="/loft/?province=广西">广西</a><a href="/loft/?province=新疆">新疆</a><a href="/loft/?province=江苏">江苏</a><a href="/loft/?province=江西省">江西省</a><a href="/loft/?province=河北">河北</a><a href="/loft/?province=河南">河南</a><a href="/loft/?province=浙江">浙江</a><a href="/loft/?province=浙江省">浙江省</a><a href="/loft/?province=湖北">湖北</a><a href="/loft/?province=湖北省">湖北省</a><a href="/loft/?province=湖南省">湖南省</a><a href="/loft/?province=甘肃">甘肃</a><a href="/loft/?province=甘肃省">甘肃省</a><a href="/loft/?province=福建省">福建省</a><a href="/loft/?province=贵州">贵州</a><a href="/loft/?province=贵州省">贵州省</a><a href="/loft/?province=辽宁">辽宁</a><a href="/loft/?province=重庆">重庆</a><a href="/loft/?province=陕西">陕西</a><a href="/loft/?province=陕西省">陕西省</a><a href="/loft/?province=青海省">青海省</a><a href="/loft/?province=黑龙江">黑龙江</a></div></div>
+      <span class="filter-spacer"></span>
+      <div class="filter-search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" placeholder="搜索公棚名称...">
+      </div>
+    </div>
+
+    <!-- Hot Lofts -->
+    <div class="section-header">
+      <h2>🔥 热门公棚</h2>
+      <a href="/loft/?order=rating" class="more">全部排行 →</a>
+    </div>
+    <div class="hot-grid">
+      
+<div class="hot-card">
+  <div class="hot-card-body">
+    <h3><a href="/loft/192.html">天津市津福赛鸽公棚</a></h3>
+    <div class="hot-card-loc">📍 天津·天津</div>
+    <div class="hot-card-badges"><span class="badge badge-type">秋棚</span><span class="badge badge-prize">🏆 ¥4332万</span></div>
+    <div class="hot-card-stats">
+      <div><span>参赛费</span><strong class="acc">¥6,666/羽</strong></div>
+      <div><span>评分</span><strong><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span> 10</strong></div>
+      <div><span>收鸽</span><strong>0羽</strong></div>
+      <div><span>距离</span><strong>504km</strong></div>
+    </div>
+  </div>
+  <a href="/loft/192.html" class="hot-card-btn">查看详情 →</a>
+</div>
+
+<div class="hot-card">
+  <div class="hot-card-body">
+    <h3><a href="/loft/198.html">天津宇航赛鸽俱乐部小棚</a></h3>
+    <div class="hot-card-loc">📍 天津·天津</div>
+    <div class="hot-card-badges"><span class="badge badge-type">秋棚</span><span class="badge badge-prize">🏆 ¥4332万</span></div>
+    <div class="hot-card-stats">
+      <div><span>参赛费</span><strong class="acc">¥6,666/羽</strong></div>
+      <div><span>评分</span><strong><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span> 10</strong></div>
+      <div><span>收鸽</span><strong>0羽</strong></div>
+      <div><span>距离</span><strong>513km</strong></div>
+    </div>
+  </div>
+  <a href="/loft/198.html" class="hot-card-btn">查看详情 →</a>
+</div>
+
+<div class="hot-card">
+  <div class="hot-card-body">
+    <h3><a href="/loft/208.html">天津宇航VIP赛鸽公棚</a></h3>
+    <div class="hot-card-loc">📍 天津·天津</div>
+    <div class="hot-card-badges"><span class="badge badge-type">秋棚</span><span class="badge badge-prize">🏆 ¥4332万</span></div>
+    <div class="hot-card-stats">
+      <div><span>参赛费</span><strong class="acc">¥6,666/羽</strong></div>
+      <div><span>评分</span><strong><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span> 10</strong></div>
+      <div><span>收鸽</span><strong>0羽</strong></div>
+      <div><span>距离</span><strong>505km</strong></div>
+    </div>
+  </div>
+  <a href="/loft/208.html" class="hot-card-btn">查看详情 →</a>
+</div>
+
+<div class="hot-card">
+  <div class="hot-card-body">
+    <h3><a href="/loft/181.html">中宠国际（天津）赛鸽公棚</a></h3>
+    <div class="hot-card-loc">📍 天津·天津</div>
+    <div class="hot-card-badges"><span class="badge badge-type">秋棚</span><span class="badge badge-prize">🏆 ¥4332万</span></div>
+    <div class="hot-card-stats">
+      <div><span>参赛费</span><strong class="acc">¥6,666/羽</strong></div>
+      <div><span>评分</span><strong><span style="color:#f59e0b">★★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db"></span> 9</strong></div>
+      <div><span>收鸽</span><strong>20,000羽</strong></div>
+      <div><span>距离</span><strong>381km</strong></div>
+    </div>
+  </div>
+  <a href="/loft/181.html" class="hot-card-btn">查看详情 →</a>
+</div>
+
+<div class="hot-card">
+  <div class="hot-card-body">
+    <h3><a href="/loft/185.html">长江国际赛鸽公棚</a></h3>
+    <div class="hot-card-loc">📍 天津·天津</div>
+    <div class="hot-card-badges"><span class="badge badge-type">秋棚</span><span class="badge badge-prize">🏆 ¥4332万</span></div>
+    <div class="hot-card-stats">
+      <div><span>参赛费</span><strong class="acc">¥6,666/羽</strong></div>
+      <div><span>评分</span><strong><span style="color:#f59e0b">★★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db"></span> 9</strong></div>
+      <div><span>收鸽</span><strong>20,000羽</strong></div>
+      <div><span>距离</span><strong>488km</strong></div>
+    </div>
+  </div>
+  <a href="/loft/185.html" class="hot-card-btn">查看详情 →</a>
+</div>
+    </div>
+
+    <!-- All Lofts -->
+    <div class="section-header">
+      <h2>📋 全部公棚 <span style="font-size:13px;font-weight:400;color:var(--text3)">共 549 家</span></h2>
+    </div>
+    <div class="loft-list" style="background:var(--card);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--border)">
+      
+    <a href="/loft/181.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db"></span></span>
+      <span class="list-name">中宠国际（天津）赛鸽公棚</span>
+      <span class="list-loc">天津 · 天津</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/185.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db"></span></span>
+      <span class="list-name">长江国际赛鸽公棚</span>
+      <span class="list-loc">天津 · 天津</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/151.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">★</span></span>
+      <span class="list-name">广东尔翔赛鸽公棚</span>
+      <span class="list-loc">广东 · 揭阳普宁市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/182.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db">★</span></span>
+      <span class="list-name">长江赛鸽公棚（春棚）</span>
+      <span class="list-loc">天津 · 天津</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/184.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db">★</span></span>
+      <span class="list-name">天津津溪天雨赛鸽公棚</span>
+      <span class="list-loc">天津 · 天津</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/186.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db">★</span></span>
+      <span class="list-name">天津市宇翔赛鸽公棚</span>
+      <span class="list-loc">天津 · 天津</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/212.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db">★</span></span>
+      <span class="list-name">开封燕子信鸽公棚</span>
+      <span class="list-loc">天津 · 开封</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/428.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★</span><span style="color:#d1d5db">★★</span></span>
+      <span class="list-name">江西星球莉翔赛鸽公棚</span>
+      <span class="list-loc">甘肃省 · 定西市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/15.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★</span><span style="color:#d1d5db">★★★</span></span>
+      <span class="list-name">唐山春兴国际赛鸽公棚（春棚）</span>
+      <span class="list-loc">河北 · 唐山</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/17.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★</span><span style="color:#d1d5db">★★★</span></span>
+      <span class="list-name">河北赛喜公棚（秋棚）</span>
+      <span class="list-loc">河北 · 唐山市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/229.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★</span><span style="color:#d1d5db">★★★</span></span>
+      <span class="list-name">博搏壹號CTS竞技乐园成长队</span>
+      <span class="list-loc">河南 · 许昌</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/16.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db">★★★</span></span>
+      <span class="list-name">唐山春兴国际赛鸽公棚（大棚）</span>
+      <span class="list-loc">河北 · 唐山市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/6.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">翔友国际赛鸽公棚（原北京翔友）</span>
+      <span class="list-loc">河北 · 保定市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/535.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">黑龙江伟路国际赛鸽公棚（秋棚）</span>
+      <span class="list-loc">内蒙古 · 呼和浩特市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/347.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">金翅天禧（大棚）秋棚</span>
+      <span class="list-loc">山东 · 东营</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/19.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">唐山春兴国际赛鸽公棚（小棚）</span>
+      <span class="list-loc">河北 · 衡水市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/18.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">河北衡大赛鸽公棚</span>
+      <span class="list-loc">河北 · 沧州市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/150.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">广东鸿栩赛鸽公棚</span>
+      <span class="list-loc">浙江省 · 湖州市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/20.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">保定竞翔赛鸽公棚</span>
+      <span class="list-loc">河北 · 唐山市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/346.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">乐安国际公棚</span>
+      <span class="list-loc">山西 · 朔州市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/180.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">天津市蓟州金羽赛鸽公棚</span>
+      <span class="list-loc">湖南省 · 耒阳市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/183.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">天津盛达赛鸽公棚</span>
+      <span class="list-loc">天津 · 天津</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/454.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">辽宁旺宏赛鸽公棚</span>
+      <span class="list-loc">吉林 · 白城市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/455.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">辽宁长城顺翔赛鸽公棚</span>
+      <span class="list-loc">辽宁 · 盘锦市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/456.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">辽宁壹号公棚</span>
+      <span class="list-loc">辽宁 · 葫芦岛</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/457.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">辽宁长城顺翔赛鸽俱乐部</span>
+      <span class="list-loc">辽宁 · 凌海市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/458.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">辽宁博翔赛鸽公棚</span>
+      <span class="list-loc">辽宁 · 兴城市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/230.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">博搏壹號CTS竞技乐园星耀队</span>
+      <span class="list-loc">陕西省 · 宝鸡市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/231.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">博搏壹號CTS竞技乐园春晓队</span>
+      <span class="list-loc">陕西省 · 宝鸡市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/503.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">内蒙古卓越星赛鸽公棚（春棚）</span>
+      <span class="list-loc">贵州省 · 黔南州</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/232.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b"></span><span style="color:#fbbf24">½</span><span style="color:#d1d5db">★★★★</span></span>
+      <span class="list-name">博搏壹號CTS竞技乐园春巢队</span>
+      <span class="list-loc">陕西省 · 宝鸡市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/192.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span></span>
+      <span class="list-name">天津市津福赛鸽公棚</span>
+      <span class="list-loc">天津 · 天津</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/198.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span></span>
+      <span class="list-name">天津宇航赛鸽俱乐部小棚</span>
+      <span class="list-loc">天津 · 天津</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/208.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★★</span><span style="color:#d1d5db"></span></span>
+      <span class="list-name">天津宇航VIP赛鸽公棚</span>
+      <span class="list-loc">天津 · 天津</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/293.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db"></span></span>
+      <span class="list-name">云南玉溪和平鸽赛鸽中心</span>
+      <span class="list-loc">广西 · 来宾</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/305.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★</span><span style="color:#fbbf24">½</span><span style="color:#d1d5db"></span></span>
+      <span class="list-name">云南东川豪庭赛鸽中心秋棚</span>
+      <span class="list-loc">云南 · 昆明市</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/281.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">★</span></span>
+      <span class="list-name">云南通海东昇赛鸽中心</span>
+      <span class="list-loc">云南 · 大理州</span>
+      <span class="list-arrow">→</span>
+    </a>
+
+    <a href="/loft/300.html" class="list-row">
+      <span class="list-rank"><span style="color:#f59e0b">★★★★</span><span style="color:#d1d5db">★</span></span>
+      <span class="list-name">云南信达赛鸽公棚</span>
+      <span class="list-loc">云南 · 红河</span>
+      <span class="list-arrow">→</span>
+    </a>
+    </div>
+
+    <div class="pagination">
+      <span class="disabled">‹ 上一页</span>
+      <span class="active">1</span>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <span class="disabled">…</span>
+      <a href="#">13</a>
+      <a href="#">下一页 ›</a>
+    </div>
+    <div class="pagination-note">共 549 家公棚 · 13 页</div>
+
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <!-- 2026 Season Stats -->
+    <div class="side-panel">
+      <div class="side-panel-header">📊 2026赛季数据</div>
+      <div class="season-stats">
+        <div class="season-stat"><div class="num">102</div><div class="lbl">参赛公棚</div></div>
+        <div class="season-stat"><div class="num">1,420</div><div class="lbl">场比赛</div></div>
+      </div>
+    </div>
+
+    <!-- Recent Champions -->
+    <div class="side-panel">
+      <div class="side-panel-header">🏆 最新冠军</div>
+      <div class="side-panel-body"><ul><li><a href="#"><span class="champ-loft">江西应星赛鸽公棚</span><span class="champ-meta">6月2日家飞扫描 · 2026-06-02 · 0 m/min</span></a></li><li><a href="#"><span class="champ-loft">江西应星赛鸽公棚</span><span class="champ-meta">6月1日家飞扫描 · 2026-06-01 · 0 m/min</span></a></li><li><a href="#"><span class="champ-loft">江西应星赛鸽公棚</span><span class="champ-meta">5月30日家飞扫描 · 2026-05-30 · 0 m/min</span></a></li><li><a href="#"><span class="champ-loft">陕西朝阳公棚</span><span class="champ-meta">陕西威奇赛鸽春棚第四关比赛 · 2026-05-29 · 1064.3355 m/min</span></a></li><li><a href="#"><span class="champ-loft">上海三海湾赛鸽秋棚</span><span class="champ-meta">5月29日605公里加站赛 · 2026-05-29 · 1227.5342542207 m/min</span></a></li><li><a href="#"><span class="champ-loft">安徽蚂蚁山赛鸽中心（秋棚）</span><span class="champ-meta">安徽亳州万鸽公棚 · 2026-05-29 · 1260.5056 m/min</span></a></li></ul></div>
+    </div>
+
+    <!-- Featured Pigeons -->
+    
+
+    <!-- Related Articles -->
+    <div class="side-panel">
+      <div class="side-panel-header">📰 公棚资讯</div>
+      <div class="side-panel-body"><ul><li><a href="/article/6.html"><span class="art-title">公棚参赛全攻略：从选棚到决赛</span><span class="art-date">2026-05-28</span></a></li></ul></div>
+    </div>
+  </aside>
+</div>
+
+<footer class="footer">
+  © 2026 <a href="/">信鸽之家 xgjia.com</a> — 全国赛鸽公棚信息平台
+</footer>
+
+</body>
+</html>

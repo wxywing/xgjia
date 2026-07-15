@@ -1,0 +1,207 @@
+# ========================================
+# 信鸽之家 - Nginx 伪静态配置
+# ========================================
+# 将此配置添加到 Nginx 的 server {} 块中
+# LNMP 环境: /usr/local/nginx/conf/vhost/你的域名.conf
+# 宝塔面板: 网站设置 → 伪静态 → 粘贴此内容
+#
+# 注意: 删除或注释掉原有的 try_files 规则
+# ========================================
+
+# ---- 文章 ----
+rewrite ^/article/create/?$ /article.php?action=create last;
+rewrite ^/article/?$ /article.php last;
+rewrite ^/article/([a-z][a-z0-9]*)/$ /article.php?category=$1 last;
+rewrite ^/article/([0-9]+)\.html$ /article.php?id=$1 last;
+rewrite ^/article/([a-z][a-z0-9]*)/([0-9]+)\.html$ /article.php?category=$1&id=$2 last;
+
+# ---- 铭鸽 ----
+rewrite ^/pigeon/create/?$ /pigeon.php?action=create last;
+rewrite ^/pigeon/?$ /pigeon.php last;
+rewrite ^/pigeon/([a-z][a-z0-9]*)/$ /pigeon.php?category=$1 last;
+rewrite ^/pigeon/([0-9]+)\.html$ /pigeon.php?id=$1 last;
+rewrite ^/pigeon/([a-z][a-z0-9]*)/([0-9]+)\.html$ /pigeon.php?category=$1&id=$2 last;
+
+# ---- 铭鸽编辑路由 (2026-06-08) ----
+rewrite ^/pigeon/edit/([0-9]+)/?$ /pigeon.php?action=edit&id=$1 last;
+rewrite ^/pigeon/update/([0-9]+)/?$ /pigeon.php?action=update&id=$1 last;
+
+# ---- 分类信息 ----
+rewrite ^/listing/create/?$ /listing.php?action=create last;
+rewrite ^/listing/?$ /listing.php last;
+rewrite ^/listing/([a-z][a-z0-9]*)/$ /listing.php?category=$1 last;
+rewrite ^/listing/([0-9]+)\.html$ /listing.php?id=$1 last;
+rewrite ^/listing/([a-z][a-z0-9]*)/([0-9]+)\.html$ /listing.php?category=$1&id=$2 last;
+
+# ---- 数据工具 ----
+rewrite ^/tools/ring-guide/?$ /tools.php?action=ring-guide&$args last;
+rewrite ^/tools/top100/?$ /tools.php?action=top100&$args last;
+rewrite ^/tools/?$ /tools.php?action=ring-guide&$args last;
+
+# ---- 赛事 ----
+rewrite ^/race/?$ /race.php last;
+rewrite ^/race/([0-9]+)\.html$ /race.php?id=$1 last;
+rewrite ^/race/ring/(.+)/?$ /race.php?action=ring&ring=$1 last;
+rewrite ^/race/report/?$ /race.php?action=report last;
+rewrite ^/race/report/(.+)/?$ /race.php?action=report&ring=$1 last;
+rewrite ^/race/loft/([0-9]+)/$ /race.php?loft_id=$1 last;
+rewrite ^/race/search/?$ /race.php?action=search last;
+rewrite ^/race/champions/?$ /race.php?action=champions last;
+rewrite ^/race/champion/?$ /race.php?action=champion last;
+rewrite ^/race/province/(.+)/?$ /race.php?action=province&province=$1 last;
+rewrite ^/race/province/?$ /race.php?action=province last;
+rewrite ^/race/city/(.+)/top/?$ /race.php?action=cityTop&city=$1 last;
+rewrite ^/race/city/(.+)/?$ /race.php?action=city&city=$1 last;
+rewrite ^/race/city/?$ /race.php?action=city last;
+rewrite ^/race/season/([0-9]+)/?$ /race.php?action=season&season_year=$1 last;
+rewrite ^/race/browse/page/([0-9]+)/?$ /race.php?action=browse&page=$1 last;
+rewrite ^/race/browse/?$ /race.php?action=browse last;
+
+# ---- 铭鸽展厅 ----
+rewrite ^/shop/?$ /shop.php last;
+rewrite ^/shop/([0-9]+)\.html$ /shop.php?id=$1 last;
+
+# ---- 公棚 ----
+rewrite ^/loft/?$ /loft.php last;
+rewrite ^/loft/([0-9]+)\.html$ /loft.php?id=$1 last;
+rewrite ^/loft/province/([^/]+)/$ /loft.php?action=province&province=$1 last;
+rewrite ^/loft/city/([^/]+)/$ /loft.php?action=city&city=$1 last;
+rewrite ^/loft/compare/?$ /loft.php?action=compare last;
+
+# ---- 认领 ----
+rewrite ^/claim/my_claims/?$ /claim.php?action=my_claims last;
+rewrite ^/claim/?$ /claim.php last;
+
+# ---- 鸽友圈 ----
+rewrite ^/dynamic/create/?$ /dynamics.php?action=create last;
+rewrite ^/dynamic/?$ /dynamics.php last;
+
+# ---- 认证 ----
+rewrite ^/login/?$ /auth.php?action=login last;
+rewrite ^/register/?$ /auth.php?action=register last;
+rewrite ^/logout/?$ /auth.php?action=logout last;
+rewrite ^/auth/?$ /auth.php last;
+rewrite ^/auth/?\?(.*)$ /auth.php?$1 last;
+rewrite ^/forgot-password/?$ /forgot-password.php last;
+rewrite ^/reset-password/?$ /reset-password.php last;
+
+# ---- 用户中心 ----
+rewrite ^/user/my_articles/?$ /user.php?action=my_articles last;
+rewrite ^/user/my_pigeons/?$ /user.php?action=my_pigeons last;
+rewrite ^/user/my_listings/?$ /user.php?action=my_listings last;
+rewrite ^/user/my_claims/?$ /claim.php?action=my_claims last;
+rewrite ^/user/membership/?$ /user.php?action=membership last;
+rewrite ^/user/edit_profile/?$ /user.php?action=edit_profile last;
+rewrite ^/user/change_password/?$ /user.php?action=change_password last;
+rewrite ^/user/?$ /user.php last;
+
+# ---- 支付 ----
+rewrite ^/pay/?$ /pay.php last;
+rewrite ^/payment/create/?$ /pay.php?action=create last;
+rewrite ^/payment/mock-confirm/?$ /pay.php?action=mock-confirm last;
+rewrite ^/payment/my-orders/?$ /pay.php?action=orders last;
+
+# ---- 血统/配对 (pedigree.php 内部用 REQUEST_URI 路由) ----
+rewrite ^/pedigree/(.*)$ /pedigree.php last;
+
+# ---- 其他页面 ----
+rewrite ^/search/?$ /search.php last;
+rewrite ^/upgrade/?$ /upgrade.php last;
+rewrite ^/admin/?$ /admin.php last;
+
+
+# ---- 公棚/展厅编辑路由 (2026-06-08) ----
+rewrite ^/loft/edit/([0-9]+)/?$ /loft.php?action=edit&id=$1 last;
+rewrite ^/shop/edit/([0-9]+)/?$ /shop.php?action=edit&id=$1 last;
+rewrite ^/loft/update/([0-9]+)/?$ /loft.php?action=update&id=$1 last;
+rewrite ^/shop/update/([0-9]+)/?$ /shop.php?action=update&id=$1 last;
+
+# ---- 页面路由 ----
+rewrite ^/page/owner/(.+)/?$ /owner.php?name=$1 last;
+
+# ---- 兼容旧URL (301跳转) ----
+# 旧详情页跳转
+if ($request_uri ~* "^/article\.php\?id=([0-9]+)") {
+    return 301 /article/$1.html;
+}
+if ($request_uri ~* "^/pigeon\.php\?id=([0-9]+)") {
+    return 301 /pigeon/$1.html;
+}
+if ($request_uri ~* "^/listing\.php\?id=([0-9]+)") {
+    return 301 /listing/$1.html;
+}
+if ($request_uri ~* "^/race\.php\?id=([0-9]+)") {
+    return 301 /race/$1.html;
+}
+if ($request_uri ~* "^/loft\.php\?id=([0-9]+)") {
+    return 301 /loft/$1.html;
+}
+if ($request_uri ~* "^/shop\.php\?id=([0-9]+)") {
+    return 301 /shop/$1.html;
+}
+# 旧列表页跳转
+if ($request_uri ~* "^/articles\.php") {
+    return 301 /article/;
+}
+if ($request_uri ~* "^/pigeons\.php") {
+    return 301 /pigeon/;
+}
+if ($request_uri ~* "^/listings\.php") {
+    return 301 /listing/;
+}
+if ($request_uri ~* "^/races\.php") {
+    return 301 /race/;
+}
+if ($request_uri ~* "^/lofts\.php") {
+    return 301 /loft/;
+}
+if ($request_uri ~* "^/shops\.php") {
+    return 301 /shop/;
+}
+if ($request_uri ~* "^/login\.php") {
+    return 301 /login;
+}
+if ($request_uri ~* "^/register\.php") {
+    return 301 /register;
+}
+
+# ---- PHP处理 ----
+# 如果LNMP默认已有以下配置则无需重复添加
+# location ~ \.php$ {
+#     fastcgi_pass unix:/tmp/php-cgi.sock;
+#     fastcgi_index index.php;
+#     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#     include fastcgi_params;
+# }
+
+# ---- 静态页面 (about, contact, ad, help, faq, agreement, privacy) ----
+rewrite ^/pages/([a-z]+)/?$ /pages.php?page=$1 last;
+
+# ---- SEO 静态文件直接返回（不被 rewrite 拦截）----
+# sitemap.xml 和 robots.txt 由 nginx 直接提供
+# 如果放在 public root 下，无需额外配置
+# 如需动态生成，取消下方注释：
+#rewrite ^/sitemap\.xml$ /sitemap.php last;
+
+# ---- 404 自定义错误页 ----
+# 取消注释以启用自定义 404 页面
+error_page 404 /404.php;
+# location = /404.php {
+#     internal;
+#     fastcgi_pass unix:/tmp/php-cgi.sock;
+#     fastcgi_param SCRIPT_FILENAME $document_root/404.php;
+#     include fastcgi_params;
+# }
+
+# ---- GeoHub 地理聚合页 ----
+rewrite ^/geohub/?$ /geohub.php last;
+rewrite ^/geohub/province/(.+?)/?$ /geohub.php?type=province&name=$1 last;
+rewrite ^/geohub/city/(.+?)/?$ /geohub.php?type=city&name=$1 last;
+
+
+
+# 标签列表
+rewrite ^/tags/?$ /tags.php last;
+
+# 标签详情
+rewrite ^/tag/([^/]+)/?$ /tag.php?slug=$1 last;

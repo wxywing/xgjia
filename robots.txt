@@ -1,0 +1,62 @@
+# robots.txt for 信鸽之家 (www.xgjia.com)
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /auth
+Disallow: /login.php
+Disallow: /register.php
+Disallow: /change_password.php
+Disallow: /edit_profile.php
+Disallow: /user/my_*
+Disallow: /pigeon_create.php
+Disallow: /pigeon_edit.php
+Disallow: /listing_create.php
+Disallow: /article_create.php
+Disallow: /pay_result.php
+Disallow: /upgrade.php
+Disallow: /*?action=login
+Disallow: /*?action=register
+Disallow: /*?action=logout
+Disallow: /_*.php
+Disallow: /scripts/
+Disallow: /tmp/
+
+# Sitemap
+Sitemap: https://www.xgjia.com/sitemap_index.xml
+
+# Crawl delay
+Crawl-delay: 1
+
+# AI / LLM Crawler Directives
+# Allow AI crawlers to access public content
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Block AI crawlers from private/user content
+User-agent: *
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /user/
+Disallow: /pay_result.php

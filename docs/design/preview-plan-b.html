@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案B：极简·杂志风 — 信鸽之家</title>
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --primary: #1a5fa8;
+    --primary-light: #2980b9;
+    --primary-dark: #154360;
+    --accent: #c9a84c;
+    --accent-light: #e0c060;
+    --bg: #fafbfc;
+    --white: #ffffff;
+    --text: #2c3e50;
+    --text-light: #6c7a89;
+    --text-muted: #95a5a6;
+    --border: #e8ecf0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-hover: 0 4px 16px rgba(0,0,0,0.08);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; }
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* ====== 导航栏 - 极简白 ====== */
+.navbar { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+.navbar-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: var(--primary); }
+.nav-logo i { color: var(--accent); font-size: 22px; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--text-light); transition: color 0.2s; padding: 4px 0; border-bottom: 2px solid transparent; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary); border-bottom-color: var(--primary); }
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+.btn { padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; display: inline-flex; align-items: center; gap: 6px; }
+.btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--primary); background: #f0f5fb; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+
+/* ====== Hero - 极简分栏 ====== */
+.hero {
+    padding: 100px 0 80px;
+    position: relative;
+    overflow: hidden;
+    background: var(--white);
+}
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.hero-text { max-width: 480px; }
+.hero-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+.hero-title { font-size: 48px; font-weight: 800; color: var(--text); margin-bottom: 20px; line-height: 1.2; letter-spacing: -0.5px; }
+.hero-title .em { color: var(--primary); position: relative; }
+.hero-title .em::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 4px;
+    width: 100%;
+    height: 10px;
+    background: rgba(201,168,76,0.25);
+    z-index: -1;
+}
+.hero-subtitle { font-size: 17px; color: var(--text-light); margin-bottom: 36px; line-height: 1.8; }
+.hero-btns { display: flex; gap: 14px; }
+.hero-btns .btn { padding: 13px 28px; font-size: 15px; border-radius: 8px; }
+.hero-btns .btn-primary { background: var(--primary); color: #fff; }
+.hero-btns .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.hero-btns .btn-outline { color: var(--text); border-color: var(--border); }
+.hero-btns .btn-outline:hover { border-color: var(--text); background: transparent; }
+
+/* 右侧几何装饰 */
+.hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 380px;
+}
+.hero-geo {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+.geo-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: geoSpin 20s linear infinite;
+}
+.geo-ring:nth-child(2) { inset: 40px; border-color: var(--primary); opacity: 0.3; animation-duration: 15s; animation-direction: reverse; }
+.geo-ring:nth-child(3) { inset: 80px; border-color: var(--accent); opacity: 0.5; animation-duration: 25s; }
+.geo-square {
+    position: absolute;
+    width: 120px; height: 120px;
+    border: 1.5px solid var(--primary);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    opacity: 0.15;
+}
+.geo-dot {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.6;
+}
+.geo-dot:nth-child(5) { top: 20px; left: 50%; }
+.geo-dot:nth-child(6) { bottom: 30px; right: 30px; }
+.geo-dot:nth-child(7) { top: 50%; right: 10px; opacity: 0.3; }
+@keyframes geoSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ====== 分隔线 ====== */
+.section-divider { width: 100%; height: 1px; background: var(--border); margin: 0; }
+
+/* ====== 六宫格分类导航 ====== */
+.cat-nav { padding: 50px 0; }
+.cat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+.cat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 32px 16px;
+    border-radius: 12px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.cat-item:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.cat-icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+.cat-icon.blue { background: #e8f4fd; color: var(--primary); }
+.cat-icon.gold { background: #fef9e7; color: var(--accent); }
+.cat-icon.green { background: #e8f8f5; color: #27ae60; }
+.cat-icon.purple { background: #f3e8ff; color: #7c3aed; }
+.cat-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.cat-count { font-size: 11px; color: var(--text-muted); }
+
+/* ====== Section 通用 ====== */
+.section { margin-bottom: 60px; }
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.section-title { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 16px;
+    min-width: 40px;
+}
+.section-more { font-size: 13px; color: var(--text-muted); font-weight: 500; transition: color 0.2s; }
+.section-more:hover { color: var(--primary); }
+
+/* ====== 精选推荐 - 不对称布局 ====== */
+.featured-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
+.featured-main {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+}
+.featured-main:hover { box-shadow: var(--shadow-hover); }
+.featured-main .f-img { width: 100%; height: 320px; background: linear-gradient(135deg, #e8f4fd, #d0e8f8); display: flex; align-items: center; justify-content: center; font-size: 80px; }
+.featured-main .f-info { padding: 22px 24px; }
+.featured-main .f-tag { display: inline-block; padding: 3px 12px; background: #fef9e7; border: 1px solid var(--accent); border-radius: 12px; font-size: 11px; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+.featured-main .f-name { font-size: 20px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+.featured-main .f-meta { font-size: 13px; color: var(--text-light); display: flex; gap: 16px; margin-bottom: 12px; }
+.featured-main .f-meta i { color: var(--accent); margin-right: 3px; }
+.featured-main .f-price { font-size: 22px; font-weight: 700; color: var(--primary); }
+.featured-side { display: flex; flex-direction: column; gap: 20px; }
+.featured-mini {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 14px;
+    transition: all 0.3s;
+    flex: 1;
+}
+.featured-mini:hover { box-shadow: var(--shadow-hover); border-color: var(--primary); }
+.featured-mini .fm-thumb {
+    width: 80px; height: 80px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #e8f4fd, #d0e8f8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    flex-shrink: 0;
+}
+.featured-mini .fm-info { flex: 1; }
+.featured-mini .fm-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
+.featured-mini .fm-blood { font-size: 11px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.featured-mini .fm-price { font-size: 15px; font-weight: 700; color: var(--primary); }
+
+/* ====== 资讯区 - 大图+列表 ====== */
+.news-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 30px; }
+.news-hero {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+}
+.news-hero:hover { box-shadow: var(--shadow-hover); }
+.news-hero .nh-img { width: 100%; height: 240px; background: linear-gradient(135deg, #e8f4fd, #d0e8f8); display: flex; align-items: center; justify-content: center; font-size: 64px; }
+.news-hero .nh-body { padding: 20px 24px; }
+.news-hero .nh-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; line-height: 1.5; }
+.news-hero .nh-desc { font-size: 13px; color: var(--text-light); line-height: 1.8; }
+.news-hero .nh-meta { font-size: 11px; color: var(--text-muted); margin-top: 10px; }
+
+.news-list { display: flex; flex-direction: column; gap: 14px; }
+.news-item {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s;
+    display: flex;
+    gap: 14px;
+}
+.news-item:last-child { border-bottom: none; }
+.news-item:hover { padding-left: 8px; }
+.news-item .ni-num { font-size: 20px; font-weight: 800; color: var(--primary); opacity: 0.15; flex-shrink: 0; width: 28px; }
+.news-item .ni-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.news-item .ni-meta { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+
+/* ====== 赛事时间线 ====== */
+.race-timeline { position: relative; padding-left: 30px; }
+.race-timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px; top: 8px; bottom: 8px;
+    width: 1.5px;
+    background: var(--border);
+}
+.race-node { position: relative; margin-bottom: 22px; }
+.race-node::before {
+    content: '';
+    position: absolute;
+    left: -21px; top: 6px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 3px rgba(26,95,168,0.1);
+}
+.race-node:last-child { margin-bottom: 0; }
+.race-node .rn-date { font-size: 11px; color: var(--primary); font-weight: 700; margin-bottom: 2px; }
+.race-node .rn-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.race-node .rn-meta { font-size: 12px; color: var(--text-light); }
+.race-node .rn-meta i { color: var(--accent); margin-right: 3px; font-size: 10px; }
+
+/* ====== 公棚卡片 ====== */
+.loft-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.loft-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+    position: relative;
+}
+.loft-card:hover { box-shadow: var(--shadow-hover); border-color: var(--primary); }
+.loft-card .lc-stars { color: var(--accent); font-size: 12px; margin-bottom: 12px; }
+.loft-card .lc-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.loft-card .lc-loc { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+.loft-card .lc-loc i { margin-right: 4px; }
+.loft-card .lc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.lc-tag { padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.lc-tag.blue { background: #eaf4ff; color: var(--primary); }
+.lc-tag.gold { background: #fef9e7; color: var(--accent); }
+.loft-card .lc-badge {
+    position: absolute;
+    top: -1px; right: 20px;
+    padding: 4px 12px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 0 0 6px 6px;
+}
+
+/* ====== 鸽友圈 ====== */
+.dynamic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+.dynamic-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+}
+.dynamic-card:hover { box-shadow: var(--shadow-hover); }
+.dynamic-card .d-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.dynamic-card .d-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+}
+.dynamic-card .d-name { font-size: 14px; font-weight: 600; }
+.dynamic-card .d-time { font-size: 11px; color: var(--text-muted); }
+.dynamic-card .d-text { font-size: 14px; color: var(--text); line-height: 1.8; margin-bottom: 12px; }
+.dynamic-card .d-actions { display: flex; gap: 20px; font-size: 12px; color: var(--text-muted); }
+.dynamic-card .d-actions span { cursor: pointer; transition: color 0.2s; display: flex; align-items: center; gap: 5px; }
+.dynamic-card .d-actions span:hover { color: var(--primary); }
+
+/* ====== CTA ====== */
+.cta-section {
+    text-align: center;
+    padding: 60px 0 70px;
+    border-top: 1px solid var(--border);
+}
+.cta-section h2 { font-size: 26px; font-weight: 700; margin-bottom: 10px; }
+.cta-section p { color: var(--text-light); margin-bottom: 28px; font-size: 15px; }
+
+/* ====== Footer ====== */
+.footer { background: var(--white); border-top: 1px solid var(--border); padding: 48px 0 24px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+.footer-brand h3 { font-size: 18px; color: var(--primary); margin-bottom: 10px; }
+.footer-brand h3 i { color: var(--accent); }
+.footer-brand p { font-size: 13px; color: var(--text-light); line-height: 1.9; }
+.footer-col h4 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 8px; }
+.footer-col a { font-size: 13px; color: var(--text-light); transition: color 0.2s; }
+.footer-col a:hover { color: var(--primary); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 20px; text-align: center; font-size: 12px; color: var(--text-muted); }
+
+@media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: none; }
+    .hero-title { font-size: 32px; }
+    .cat-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .featured-layout { grid-template-columns: 1fr; }
+    .featured-main .f-img { height: 220px; }
+    .news-layout { grid-template-columns: 1fr; }
+    .dynamic-grid { grid-template-columns: 1fr; }
+    .loft-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 25px; }
+}
+@media (max-width: 480px) {
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .loft-grid { grid-template-columns: 1fr; }
+    .hero { padding: 60px 0; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="/" class="nav-logo"><i class="fas fa-dove"></i>信鸽之家</a>
+        <ul class="nav-links">
+            <li><a href="#" class="active">首页</a></li>
+            <li><a href="#">铭鸽</a></li>
+            <li><a href="#">公棚</a></li>
+            <li><a href="#">展厅</a></li>
+            <li><a href="#">资讯</a></li>
+            <li><a href="#">鸽友圈</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="#" class="btn btn-outline">登录</a>
+            <a href="#" class="btn btn-primary">注册</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ====== Hero - 极简分栏 ====== -->
+<section class="hero">
+    <div class="hero-grid">
+        <div class="hero-text">
+            <div class="hero-label">Pigeon Racing Platform</div>
+            <h1 class="hero-title">为每一羽赛鸽<br>找到<span class="em">它的归属</span></h1>
+            <p class="hero-subtitle">汇集全国优质公棚、铭鸽、展厅信息，为鸽友提供简洁高效的查询与交流服务</p>
+            <div class="hero-btns">
+                <a href="#" class="btn btn-primary"><i class="fas fa-search"></i> 浏览铭鸽</a>
+                <a href="#" class="btn btn-outline"><i class="fas fa-edit"></i> 发布信息</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-geo">
+                <div class="geo-ring"></div>
+                <div class="geo-ring"></div>
+                <div class="geo-ring"></div>
+                <div class="geo-square"></div>
+                <div class="geo-dot"></div>
+                <div class="geo-dot"></div>
+                <div class="geo-dot"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<div class="container">
+
+    <!-- 六宫格分类导航 -->
+    <div class="cat-nav">
+        <div class="cat-grid">
+            <a href="#" class="cat-item">
+                <div class="cat-icon blue"><i class="fas fa-dove"></i></div>
+                <div class="cat-name">铭鸽展厅</div>
+                <div class="cat-count">10,359 只</div>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon gold"><i class="fas fa-building"></i></div>
+                <div class="cat-name">公棚信息</div>
+                <div class="cat-count">549 家</div>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon green"><i class="fas fa-store"></i></div>
+                <div class="cat-name">展厅商家</div>
+                <div class="cat-count">366 家</div>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon blue"><i class="fas fa-newspaper"></i></div>
+                <div class="cat-name">行业资讯</div>
+                <div class="cat-count">19 篇</div>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon gold"><i class="fas fa-trophy"></i></div>
+                <div class="cat-name">赛事信息</div>
+                <div class="cat-count">91 场</div>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon purple"><i class="fas fa-comments"></i></div>
+                <div class="cat-name">鸽友圈</div>
+                <div class="cat-count">91 条</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 精选推荐 - 不对称布局 -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">🔥 精选推荐</h2>
+            <a href="#" class="section-more">查看全部 →</a>
+        </div>
+        <div class="featured-layout">
+            <div class="featured-main">
+                <div class="f-img">🕊️</div>
+                <div class="f-info">
+                    <div class="f-tag">詹森原舍</div>
+                    <div class="f-name">詹森系超级种鸽 · 纯血传承三代冠军</div>
+                    <div class="f-meta">
+                        <span><i class="fas fa-ring"></i> CHN2026-001234</span>
+                        <span><i class="fas fa-venus-mars"></i> 雄</span>
+                    </div>
+                    <div class="f-price">¥50,000</div>
+                </div>
+            </div>
+            <div class="featured-side">
+                <div class="featured-mini">
+                    <div class="fm-thumb">🕊️</div>
+                    <div class="fm-info">
+                        <div class="fm-name">胡本原舍种雌</div>
+                        <div class="fm-blood">胡本血统</div>
+                        <div class="fm-price">¥28,000</div>
+                    </div>
+                </div>
+                <div class="featured-mini">
+                    <div class="fm-thumb">🕊️</div>
+                    <div class="fm-info">
+                        <div class="fm-name">桑杰士速度赛将</div>
+                        <div class="fm-blood">桑杰士血统</div>
+                        <div class="fm-price">¥35,000</div>
+                    </div>
+                </div>
+                <div class="featured-mini">
+                    <div class="fm-thumb">🕊️</div>
+                    <div class="fm-info">
+                        <div class="fm-name">盖比闪电号直系</div>
+                        <div class="fm-blood">盖比血统</div>
+                        <div class="fm-price">¥42,000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 最新资讯 + 赛事日历 -->
+    <div class="news-layout">
+        <div class="section" style="margin-bottom:0;">
+            <div class="section-header">
+                <h2 class="section-title">📰 最新资讯</h2>
+                <a href="#" class="section-more">全部 →</a>
+            </div>
+            <div class="news-hero" style="margin-bottom:18px;">
+                <div class="nh-img">📰</div>
+                <div class="nh-body">
+                    <div class="nh-title">2026年春赛总结：京沪争霸格局初现，多羽赛鸽突破纪录</div>
+                    <div class="nh-desc">本赛季北京与上海赛区表现亮眼，多羽赛鸽突破万羽归巢纪录，展现了国内赛鸽运动的蓬勃发展。</div>
+                    <div class="nh-meta"><i class="far fa-clock"></i> 2小时前 · <i class="far fa-eye"></i> 1,230 阅读</div>
+                </div>
+            </div>
+            <div class="news-list">
+                <a href="#" class="news-item">
+                    <span class="ni-num">02</span>
+                    <div><div class="ni-title">公棚管理新规出台：2026年参赛章程解读</div><div class="ni-meta">5小时前 · 856 阅读</div></div>
+                </a>
+                <a href="#" class="news-item">
+                    <span class="ni-num">03</span>
+                    <div><div class="ni-title">詹森血统鸽拍卖会再创新高，一羽种鸽成交80万</div><div class="ni-meta">昨天 · 2,140 阅读</div></div>
+                </a>
+                <a href="#" class="news-item">
+                    <span class="ni-num">04</span>
+                    <div><div class="ni-title">幼鸽训练期营养管理全攻略：从出壳到训放</div><div class="ni-meta">昨天 · 1,580 阅读</div></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="section" style="margin-bottom:0;">
+            <div class="section-header">
+                <h2 class="section-title">🏆 赛事日历</h2>
+                <a href="#" class="section-more">全部 →</a>
+            </div>
+            <div class="race-timeline">
+                <div class="race-node">
+                    <div class="rn-date">5月29日</div>
+                    <div class="rn-name">春赛500公里决赛</div>
+                    <div class="rn-meta"><i class="fas fa-map-marker-alt"></i> 北京开创者 <span style="margin:0 8px;">·</span> <i class="fas fa-route"></i> 500km</div>
+                </div>
+                <div class="race-node">
+                    <div class="rn-date">5月30日</div>
+                    <div class="rn-name">公棚收鸽截止日期</div>
+                    <div class="rn-meta"><i class="fas fa-map-marker-alt"></i> 开尔爱心公棚</div>
+                </div>
+                <div class="race-node">
+                    <div class="rn-date">6月1日</div>
+                    <div class="rn-name">幼鸽赛报名启动</div>
+                    <div class="rn-meta"><i class="fas fa-map-marker-alt"></i> 神州辉煌公棚 <span style="margin:0 8px;">·</span> <i class="fas fa-route"></i> 300km</div>
+                </div>
+                <div class="race-node">
+                    <div class="rn-date">6月5日</div>
+                    <div class="rn-name">秋季训放计划公布</div>
+                    <div class="rn-meta"><i class="fas fa-map-marker-alt"></i> 天津宇航公棚</div>
+                </div>
+                <div class="race-node">
+                    <div class="rn-date">6月10日</div>
+                    <div class="rn-name">国家赛武汉赛区开笼</div>
+                    <div class="rn-meta"><i class="fas fa-map-marker-alt"></i> 武汉 <span style="margin:0 8px;">·</span> <i class="fas fa-route"></i> 700km</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 热门公棚 -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">🏠 热门公棚</h2>
+            <a href="#" class="section-more">查看全部 →</a>
+        </div>
+        <div class="loft-grid">
+            <div class="loft-card">
+                <div class="lc-badge">推荐</div>
+                <div class="lc-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.9</div>
+                <div class="lc-name">北京开创者赛鸽俱乐部</div>
+                <div class="lc-loc"><i class="fas fa-map-marker-alt"></i> 北京</div>
+                <div class="lc-tags"><span class="lc-tag blue">春棚</span><span class="lc-tag gold">决赛500km</span></div>
+            </div>
+            <div class="loft-card">
+                <div class="lc-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.8</div>
+                <div class="lc-name">开尔爱心公棚</div>
+                <div class="lc-loc"><i class="fas fa-map-marker-alt"></i> 河北唐山</div>
+                <div class="lc-tags"><span class="lc-tag blue">春棚</span><span class="lc-tag gold">公棚赛</span></div>
+            </div>
+            <div class="loft-card">
+                <div class="lc-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star" style="color:var(--border);"></i> 4.7</div>
+                <div class="lc-name">神州辉煌赛鸽公棚</div>
+                <div class="lc-loc"><i class="fas fa-map-marker-alt"></i> 辽宁</div>
+                <div class="lc-tags"><span class="lc-tag blue">秋棚</span></div>
+            </div>
+            <div class="loft-card">
+                <div class="lc-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star" style="color:var(--border);"></i> 4.6</div>
+                <div class="lc-name">天津宇航赛鸽公棚</div>
+                <div class="lc-loc"><i class="fas fa-map-marker-alt"></i> 天津</div>
+                <div class="lc-tags"><span class="lc-tag blue">春秋棚</span><span class="lc-tag gold">国家赛</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 鸽友圈 -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">💬 鸽友圈动态</h2>
+            <a href="#" class="section-more">更多动态 →</a>
+        </div>
+        <div class="dynamic-grid">
+            <div class="dynamic-card">
+                <div class="d-head">
+                    <div class="d-avatar"><i class="fas fa-user"></i></div>
+                    <div><div class="d-name">北京老王</div><div class="d-time">30分钟前</div></div>
+                </div>
+                <div class="d-text">今天公棚训放120公里，归巢率98%，这批幼鸽状态真不错！期待决赛表现 🐦</div>
+                <div class="d-actions"><span><i class="far fa-heart"></i> 23</span><span><i class="far fa-comment"></i> 5</span></div>
+            </div>
+            <div class="dynamic-card">
+                <div class="d-head">
+                    <div class="d-avatar"><i class="fas fa-user"></i></div>
+                    <div><div class="d-name">上海小陈</div><div class="d-time">1小时前</div></div>
+                </div>
+                <div class="d-text">求购詹森原舍种鸽一对，要求带血统书，诚意收购价格好商量。</div>
+                <div class="d-actions"><span><i class="far fa-heart"></i> 15</span><span><i class="far fa-comment"></i> 8</span></div>
+            </div>
+            <div class="dynamic-card">
+                <div class="d-head">
+                    <div class="d-avatar"><i class="fas fa-user"></i></div>
+                    <div><div class="d-name">天津张教练</div><div class="d-time">5小时前</div></div>
+                </div>
+                <div class="d-text">赛前调整经验分享：提前一周减蛋白增碳水，保证鸽子肌肉状态最佳。</div>
+                <div class="d-actions"><span><i class="far fa-heart"></i> 34</span><span><i class="far fa-comment"></i> 12</span></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+    <div class="container">
+        <h2>加入信鸽之家，开启您的赛鸽之旅</h2>
+        <p>免费注册，即刻发布铭鸽、浏览公棚、与全国鸽友交流</p>
+        <a href="#" class="btn btn-primary" style="padding:13px 36px;font-size:15px;"><i class="fas fa-user-plus"></i> 立即注册</a>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3><i class="fas fa-dove"></i> 信鸽之家</h3>
+                <p>专业信鸽信息服务平台，为鸽友提供公棚查询、铭鸽展厅、血统查询、赛事资讯、鸽友交流等全方位服务。</p>
+            </div>
+            <div class="footer-col"><h4>快速导航</h4><ul><li><a href="#">铭鸽展厅</a></li><li><a href="#">公棚信息</a></li><li><a href="#">展厅商家</a></li><li><a href="#">行业资讯</a></li></ul></div>
+            <div class="footer-col"><h4>帮助支持</h4><ul><li><a href="#">关于我们</a></li><li><a href="#">联系我们</a></li><li><a href="#">用户协议</a></li><li><a href="#">隐私政策</a></li></ul></div>
+            <div class="footer-col"><h4>法律信息</h4><ul><li><a href="#">用户协议</a></li><li><a href="#">隐私政策</a></li><li><a href="#">商家入驻</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 信鸽之家 · 管理后台</p></div>
+    </div>
+</footer>
+
+</body>
+</html>

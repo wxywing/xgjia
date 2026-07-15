@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信鸽之家 - 首页预览 v3（基于现有模块）</title>
+<style>
+/* ========== CSS 变量 ========== */
+:root {
+    --primary: #1a5fa8;
+    --primary-dark: #154360;
+    --primary-light: #e8f0fa;
+    --accent: #c9a84c;
+    --accent-dark: #b8943a;
+    --white: #ffffff;
+    --bg: #f4f6f9;
+    --text: #2c3e50;
+    --text-light: #6c7a89;
+    --border: #e8ecf0;
+    --shadow: 0 2px 12px rgba(26,95,168,0.08);
+    --radius: 8px;
+}
+
+/* ========== Reset ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+/* ========== 顶部通知条 ========== */
+.top-bar { background: var(--primary-dark); color: var(--white); font-size: 13px; padding: 6px 0; }
+.top-bar-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+.top-bar a { color: var(--accent); text-decoration: none; margin-left: 16px; font-size: 13px; }
+.top-bar a:hover { text-decoration: underline; }
+
+/* ========== 导航栏（导航+搜索已合并） ========== */
+.navbar { background: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; }
+.navbar-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; height: 60px; }
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--primary); font-size: 20px; font-weight: 700; margin-right: 40px; flex-shrink: 0; }
+.nav-logo i { font-size: 24px; }
+.nav-links { display: flex; gap: 4px; list-style: none; flex: 1; }
+.nav-links a { display: block; padding: 8px 16px; border-radius: var(--radius); color: var(--text); text-decoration: none; font-size: 15px; transition: all 0.2s; white-space: nowrap; }
+.nav-links a:hover, .nav-links a.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+.nav-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; flex-shrink: 0; }
+.nav-search { display: flex; align-items: center; background: var(--bg); border-radius: 20px; padding: 4px 4px 4px 12px; border: 1px solid var(--border); }
+.nav-search input { border: none; background: transparent; outline: none; font-size: 14px; width: 160px; padding: 4px 0; color: var(--text); }
+.nav-search input::placeholder { color: var(--text-light); }
+.nav-search button { background: var(--primary); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.nav-search button:hover { background: var(--primary-dark); }
+.btn-outline { padding: 6px 16px; border-radius: 20px; border: 1px solid var(--primary); color: var(--primary); background: transparent; text-decoration: none; font-size: 14px; cursor: pointer; }
+.btn-outline:hover { background: var(--primary-light); }
+.btn-primary-nav { padding: 6px 16px; border-radius: 20px; background: var(--primary); color: white; border: none; text-decoration: none; font-size: 14px; cursor: pointer; }
+.btn-primary-nav:hover { background: var(--primary-dark); }
+
+/* ========== Hero ========== */
+.hero { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #2a7fc8 100%); color: white; padding: 60px 20px; text-align: center; }
+.hero h1 { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
+.hero p { font-size: 18px; opacity: 0.85; margin-bottom: 28px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.hero-search { max-width: 600px; margin: 0 auto; display: flex; background: rgba(255,255,255,0.15); border-radius: 30px; padding: 6px; backdrop-filter: blur(10px); }
+.hero-search input { flex: 1; border: none; background: white; border-radius: 24px; padding: 12px 20px; font-size: 16px; outline: none; }
+.hero-search button { background: var(--accent); color: white; border: none; border-radius: 24px; padding: 12px 28px; font-size: 16px; cursor: pointer; font-weight: 600; white-space: nowrap; }
+.hero-search button:hover { background: var(--accent-dark); }
+.hero-stats { display: flex; justify-content: center; gap: 48px; margin-top: 36px; }
+.hero-stat { text-align: center; }
+.hero-stat-num { font-size: 28px; font-weight: 800; color: var(--accent); }
+.hero-stat-label { font-size: 13px; opacity: 0.75; margin-top: 2px; }
+
+/* ========== 通用区块 ========== */
+.section { max-width: 1200px; margin: 0 auto; padding: 48px 20px; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.section-title { font-size: 22px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.section-title i { color: var(--primary); }
+.section-more { color: var(--primary); text-decoration: none; font-size: 14px; }
+.section-more:hover { text-decoration: underline; }
+
+/* ========== 铭鸽推荐 ========== */
+.pigeon-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.pigeon-card { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+.pigeon-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,95,168,0.15); }
+.pigeon-card-img { width: 100%; height: 180px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 14px; }
+.pigeon-card-body { padding: 14px; }
+.pigeon-card-name { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.pigeon-card-meta { font-size: 13px; color: var(--text-light); display: flex; gap: 12px; }
+.pigeon-card-price { color: #e74c3c; font-weight: 700; font-size: 16px; margin-top: 8px; }
+.pigeon-card-badge { display: inline-block; background: var(--accent); color: white; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
+
+/* ========== 公棚热度榜 ========== */
+.loft-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.loft-card { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); cursor: pointer; }
+.loft-card:hover { transform: translateY(-2px); }
+.loft-card-img { width: 100%; height: 140px; background: linear-gradient(135deg, var(--primary-light), #d4e6f9); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 14px; }
+.loft-card-body { padding: 14px; }
+.loft-card-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.loft-card-loc { font-size: 13px; color: var(--text-light); }
+.loft-card-race { font-size: 12px; color: var(--primary); margin-top: 6px; }
+
+/* ========== 两栏布局 ========== */
+.two-col { display: grid; grid-template-columns: 1fr 360px; gap: 24px; }
+.col-main { min-width: 0; }
+.col-side { min-width: 0; }
+
+/* ========== 赛事成绩 ========== */
+.race-list { display: flex; flex-direction: column; gap: 12px; }
+.race-item { background: white; border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 16px; }
+.race-item-rank { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.race-item-info { flex: 1; }
+.race-item-name { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.race-item-meta { font-size: 13px; color: var(--text-light); }
+.race-item-result { text-align: right; flex-shrink: 0; }
+.race-item-time { font-size: 13px; color: var(--text-light); }
+.race-item-score { font-size: 14px; font-weight: 600; color: var(--primary); margin-top: 2px; }
+
+/* ========== 最新资讯 ========== */
+.article-list { display: flex; flex-direction: column; gap: 16px; }
+.article-item { background: white; border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); display: flex; gap: 16px; }
+.article-item-img { width: 120px; height: 80px; background: var(--primary-light); border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 12px; }
+.article-item-body { flex: 1; min-width: 0; }
+.article-item-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
+.article-item-title a { color: var(--text); text-decoration: none; }
+.article-item-title a:hover { color: var(--primary); }
+.article-item-summary { font-size: 13px; color: var(--text-light); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.article-item-meta { font-size: 12px; color: var(--text-light); margin-top: 8px; display: flex; gap: 16px; }
+
+/* ========== 侧边栏 ========== */
+.sidebar-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 20px; }
+.sidebar-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.sidebar-title i { color: var(--primary); }
+
+/* ========== 热门展厅 ========== */
+.shop-list { display: flex; flex-direction: column; gap: 12px; }
+.shop-item { display: flex; align-items: center; gap: 12px; }
+.shop-item-img { width: 48px; height: 48px; background: var(--primary-light); border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 12px; }
+.shop-item-name { font-size: 14px; font-weight: 600; }
+.shop-item-desc { font-size: 12px; color: var(--text-light); }
+
+/* ========== 鸽友圈动态 ========== */
+.circle-list { display: flex; flex-direction: column; gap: 12px; }
+.circle-item { background: white; border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); }
+.circle-item-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.circle-item-avatar { width: 36px; height: 36px; background: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 14px; }
+.circle-item-user { font-size: 14px; font-weight: 600; }
+.circle-item-time { font-size: 12px; color: var(--text-light); margin-left: auto; }
+.circle-item-content { font-size: 14px; color: var(--text); line-height: 1.6; }
+.circle-item-actions { display: flex; gap: 16px; margin-top: 10px; font-size: 13px; color: var(--text-light); }
+.circle-item-actions span { cursor: pointer; }
+.circle-item-actions span:hover { color: var(--primary); }
+
+/* ========== 广告位 ========== */
+.ad-banner { background: linear-gradient(135deg, #fff8e1, #fff3cd); border-radius: var(--radius); padding: 24px; text-align: center; margin: 32px auto; max-width: 1200px; border: 2px dashed var(--accent); }
+.ad-banner-label { font-size: 12px; color: var(--accent-dark); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.ad-banner-title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.ad-banner-desc { font-size: 14px; color: var(--text-light); }
+
+.ad-inline { background: linear-gradient(135deg, #e8f0fa, #f0f4fa); border-radius: var(--radius); padding: 20px; text-align: center; margin: 24px 0; border: 1px dashed var(--primary); }
+.ad-sidebar { background: linear-gradient(135deg, #fff8e1, #fffde7); border-radius: var(--radius); padding: 16px; text-align: center; border: 1px dashed var(--accent); }
+
+/* ========== 热门品系 ========== */
+.strain-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.strain-tag { padding: 8px 18px; background: var(--primary-light); border-radius: 20px; color: var(--primary); text-decoration: none; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+.strain-tag:hover { background: var(--primary); color: white; }
+
+/* ========== 页脚 ========== */
+.footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 48px 20px 24px; margin-top: 48px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-bottom: 32px; }
+.footer-col h4 { color: white; font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; margin-bottom: 8px; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; font-size: 13px; }
+
+/* ========== 手机适配 ========== */
+.hamburger { display: none; background: none; border: none; font-size: 24px; color: var(--primary); cursor: pointer; }
+.mobile-nav { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; }
+.mobile-nav.active { display: block; }
+.mobile-nav-panel { position: absolute; top: 0; right: 0; width: 280px; height: 100%; background: white; padding: 20px; overflow-y: auto; }
+.mobile-nav-panel a { display: block; padding: 12px 0; color: var(--text); text-decoration: none; font-size: 16px; border-bottom: 1px solid var(--border); }
+.mobile-nav-panel a.active { color: var(--primary); font-weight: 600; }
+
+@media (max-width: 768px) {
+    .nav-links, .nav-actions { display: none; }
+    .hamburger { display: block; }
+    .hero h1 { font-size: 24px; }
+    .hero-stats { gap: 24px; }
+    .hero-stat-num { font-size: 20px; }
+    .pigeon-grid { grid-template-columns: repeat(2, 1fr); }
+    .loft-grid { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 顶部通知条 ===== -->
+<div class="top-bar">
+    <div class="top-bar-inner">
+        <span>欢迎来到信鸽之家 — 最专业的信鸽信息服务平台</span>
+        <div>
+            <a href="/auth?action=login">登录</a>
+            <a href="/auth?action=register">注册</a>
+            <a href="/user"><i class="fas fa-user"></i> 我的</a>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 导航栏（导航+搜索合并） ===== -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="/" class="nav-logo">
+            <i class="fas fa-dove"></i><span>信鸽之家</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/" class="active">首页</a></li>
+            <li><a href="/pigeon/">铭鸽</a></li>
+            <li><a href="/shop/">展厅</a></li>
+            <li><a href="/loft/">公棚</a></li>
+            <li><a href="/race/">赛事成绩</a></li>
+            <li><a href="/article/">资讯</a></li>
+            <li><a href="/dynamic/">鸽友圈</a></li>
+        </ul>
+        <div class="nav-actions">
+            <!-- 搜索已合并到导航栏右侧 -->
+            <form class="nav-search" action="/search/">
+                <input type="text" name="q" placeholder="搜索铭鸽、公棚、资讯...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <a href="/auth?action=login" class="btn-outline">登录</a>
+            <a href="/auth?action=register" class="btn-primary-nav">注册</a>
+        </div>
+        <button class="hamburger" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<!-- 手机端导航 -->
+<div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-panel">
+        <a href="/" class="active">首页</a>
+        <a href="/pigeon/">铭鸽</a>
+        <a href="/shop/">展厅</a>
+        <a href="/loft/">公棚</a>
+        <a href="/race/">赛事成绩</a>
+        <a href="/article/">资讯</a>
+        <a href="/dynamic/">鸽友圈</a>
+    </div>
+</div>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+    <h1>信鸽之家</h1>
+    <p>最专业的信鸽信息服务平台 — 铭鸽交易、公棚查询、赛事成绩、行业资讯</p>
+    <!-- Hero区搜索（大号版本） -->
+    <div class="hero-search">
+        <input type="text" placeholder="输入足环号、鸽主姓名、公棚名称...">
+        <button>搜索</button>
+    </div>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-num">10,359+</div>
+            <div class="hero-stat-label">铭鸽数据</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-num">549+</div>
+            <div class="hero-stat-label">公棚入驻</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-num">2,872+</div>
+            <div class="hero-stat-label">赛事收录</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-num">366+</div>
+            <div class="hero-stat-label">展厅商家</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 广告位 1：Hero 与铭鸽之间 ===== -->
+<div class="ad-banner">
+    <div class="ad-banner-label">赞助商广告</div>
+    <div class="ad-banner-title">XX公棚 2026春季赛 火热报名中</div>
+    <div class="ad-banner-desc">总奖金500万 · 报名截止日期：2026年7月1日</div>
+</div>
+
+<!-- ===== 铭鸽推荐 ===== -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-title"><i class="fas fa-dove"></i> 推荐铭鸽</div>
+        <a href="/pigeon/" class="section-more">查看全部 →</a>
+    </div>
+    <div class="pigeon-grid">
+        <div class="pigeon-card">
+            <div class="pigeon-card-img">铭鸽图片</div>
+            <div class="pigeon-card-body">
+                <div class="pigeon-card-name">闪电号 第15-032166</div>
+                <div class="pigeon-card-meta"><span>♂ 灰</span><span>2015年</span></div>
+                <span class="pigeon-card-badge">种鸽</span>
+                <div class="pigeon-card-price">￥28,000</div>
+            </div>
+        </div>
+        <div class="pigeon-card">
+            <div class="pigeon-card-img">铭鸽图片</div>
+            <div class="pigeon-card-body">
+                <div class="pigeon-card-name">黄金配对直子 18-061234</div>
+                <div class="pigeon-card-meta"><span>♀ 雨点</span><span>2018年</span></div>
+                <span class="pigeon-card-badge">赛鸽</span>
+                <div class="pigeon-card-price">￥15,500</div>
+            </div>
+        </div>
+        <div class="pigeon-card">
+            <div class="pigeon-card-img">铭鸽图片</div>
+            <div class="pigeon-card-body">
+                <div class="pigeon-card-name">KBDB全国冠军 17-880001</div>
+                <div class="pigeon-card-meta"><span>♂ 灰</span><span>2017年</span></div>
+                <span class="pigeon-card-badge">进口</span>
+                <div class="pigeon-card-price">￥52,000</div>
+            </div>
+        </div>
+        <div class="pigeon-card">
+            <div class="pigeon-card-img">铭鸽图片</div>
+            <div class="pigeon-card-body">
+                <div class="pigeon-card-name">奶酪240直女 20-112233</div>
+                <div class="pigeon-card-meta"><span>♀ 雨白条</span><span>2020年</span></div>
+                <div class="pigeon-card-price">￥8,800</div>
+            </div>
+        </div>
+        <div class="pigeon-card">
+            <div class="pigeon-card-img">铭鸽图片</div>
+            <div class="pigeon-card-body">
+                <div class="pigeon-card-name">胡本年轻艺术家直孙 19-445566</div>
+                <div class="pigeon-card-meta"><span>♂ 雨点</span><span>2019年</span></div>
+                <span class="pigeon-card-badge">种鸽</span>
+                <div class="pigeon-card-price">￥36,000</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 广告位 2：铭鸽与公棚之间 ===== -->
+<div class="ad-inline">
+    <div style="font-size:12px;color:var(--accent);margin-bottom:6px;">广告</div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:4px;">XX鸽药 — 专业信鸽用品供应商</div>
+    <div style="font-size:13px;color:var(--text-light);">电解质/氨基酸/比赛调节剂 全场8折优惠中</div>
+</div>
+
+<!-- ===== 热门公棚 + 侧边栏 ===== -->
+<section class="section">
+    <div class="two-col">
+        <!-- 主栏：热门公棚 -->
+        <div class="col-main">
+            <div class="section-header">
+                <div class="section-title"><i class="fas fa-building"></i> 热门公棚</div>
+                <a href="/loft/" class="section-more">查看全部 →</a>
+            </div>
+            <div class="loft-grid">
+                <div class="loft-card">
+                    <div class="loft-card-img">公棚图片</div>
+                    <div class="loft-card-body">
+                        <div class="loft-card-name">北京长城公棚</div>
+                        <div class="loft-card-loc"><i class="fas fa-map-marker-alt"></i> 北京</div>
+                        <div class="loft-card-race">2026春赛 · 集鸽中</div>
+                    </div>
+                </div>
+                <div class="loft-card">
+                    <div class="loft-card-img">公棚图片</div>
+                    <div class="loft-card-body">
+                        <div class="loft-card-name">上海黄金海岸</div>
+                        <div class="loft-card-loc"><i class="fas fa-map-marker-alt"></i> 上海</div>
+                        <div class="loft-card-race">2026春赛 · 比赛中</div>
+                    </div>
+                </div>
+                <div class="loft-card">
+                    <div class="loft-card-img">公棚图片</div>
+                    <div class="loft-card-body">
+                        <div class="loft-card-name">成都飞鹰公棚</div>
+                        <div class="loft-card-loc"><i class="fas fa-map-marker-alt"></i> 四川成都</div>
+                        <div class="loft-card-race">2026春赛 · 集鸽中</div>
+                    </div>
+                </div>
+                <div class="loft-card">
+                    <div class="loft-card-img">公棚图片</div>
+                    <div class="loft-card-body">
+                        <div class="loft-card-name">广东开创公棚</div>
+                        <div class="loft-card-loc"><i class="fas fa-map-marker-alt"></i> 广东广州</div>
+                        <div class="loft-card-race">2026春赛 · 已结束</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 侧栏：热门展厅 -->
+        <div class="col-side">
+            <div class="sidebar-card">
+                <div class="sidebar-title"><i class="fas fa-store"></i> 热门展厅</div>
+                <div class="shop-list">
+                    <div class="shop-item">
+                        <div class="shop-item-img">图</div>
+                        <div>
+                            <div class="shop-item-name">老张信鸽展厅</div>
+                            <div class="shop-item-desc">比利时进口 · 5年内</div>
+                        </div>
+                    </div>
+                    <div class="shop-item">
+                        <div class="shop-item-img">图</div>
+                        <div>
+                            <div class="shop-item-name">蓝天鸽舍</div>
+                            <div class="shop-item-desc">国内名家 · 种鸽</div>
+                        </div>
+                    </div>
+                    <div class="shop-item">
+                        <div class="shop-item-img">图</div>
+                        <div>
+                            <div class="shop-item-name">中原铭鸽阁</div>
+                            <div class="shop-item-desc">比赛成绩优秀</div>
+                        </div>
+                    </div>
+                    <div class="shop-item">
+                        <div class="shop-item-img">图</div>
+                        <div>
+                            <div class="shop-item-name">东海鸽业</div>
+                            <div class="shop-item-desc">长距离专长</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 侧栏广告位 -->
+            <div class="sidebar-card ad-sidebar">
+                <div style="font-size:11px;color:var(--accent-dark);margin-bottom:6px;">广告</div>
+                <div style="font-size:14px;font-weight:700;margin-bottom:4px;">公棚入驻招募</div>
+                <div style="font-size:12px;color:var(--text-light);">免费认领您的公棚/展厅，获取更多曝光</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 广告位 3：公棚与赛事之间 ===== -->
+<div class="ad-inline">
+    <div style="font-size:12px;color:var(--accent);margin-bottom:6px;">广告</div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:4px;">2026年春季信鸽博览会 — 展位火热预订中</div>
+    <div style="font-size:13px;color:var(--text-light);">时间：2026年9月 · 地点：北京国际展览中心</div>
+</div>
+
+<!-- ===== 最新赛事成绩 + 最新资讯（双栏） ===== -->
+<section class="section">
+    <div class="two-col">
+        <!-- 主栏：最新赛事成绩 -->
+        <div class="col-main">
+            <div class="section-header">
+                <div class="section-title"><i class="fas fa-trophy"></i> 最新赛事成绩</div>
+                <a href="/race/" class="section-more">查看全部 →</a>
+            </div>
+            <div class="race-list">
+                <div class="race-item">
+                    <div class="race-item-rank">1</div>
+                    <div class="race-item-info">
+                        <div class="race-item-name">北京长城公棚 · 2026春季决赛</div>
+                        <div class="race-item-meta"><span>空距：480km</span> · <span>归巢率：38.2%</span></div>
+                    </div>
+                    <div class="race-item-result">
+                        <div class="race-item-time">2026-05-20</div>
+                        <div class="race-item-score">查看成绩 →</div>
+                    </div>
+                </div>
+                <div class="race-item">
+                    <div class="race-item-rank" style="background:#6c7a89;">2</div>
+                    <div class="race-item-info">
+                        <div class="race-item-name">上海黄金海岸 · 2026春季500公里</div>
+                        <div class="race-item-meta"><span>空距：510km</span> · <span>归巢率：42.1%</span></div>
+                    </div>
+                    <div class="race-item-result">
+                        <div class="race-item-time">2026-05-18</div>
+                        <div class="race-item-score">查看成绩 →</div>
+                    </div>
+                </div>
+                <div class="race-item">
+                    <div class="race-item-rank" style="background:#6c7a89;">3</div>
+                    <div class="race-item-info">
+                        <div class="race-item-name">成都飞鹰公棚 · 2026春季决赛</div>
+                        <div class="race-item-meta"><span>空距：450km</span> · <span>归巢率：35.7%</span></div>
+                    </div>
+                    <div class="race-item-result">
+                        <div class="race-item-time">2026-05-15</div>
+                        <div class="race-item-score">查看成绩 →</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 侧栏：最新资讯 -->
+        <div class="col-side">
+            <div class="sidebar-card">
+                <div class="sidebar-title"><i class="fas fa-newspaper"></i> 最新资讯</div>
+                <div class="article-list">
+                    <div class="article-item">
+                        <div class="article-item-img">图</div>
+                        <div class="article-item-body">
+                            <div class="article-item-title"><a href="#">2026年全国信鸽工作会议在京召开</a></div>
+                            <div class="article-item-meta"><span>资讯</span> · <span>2026-06-05</span></div>
+                        </div>
+                    </div>
+                    <div class="article-item">
+                        <div class="article-item-img">图</div>
+                        <div class="article-item-body">
+                            <div class="article-item-title"><a href="#">如何科学训练幼鸽 — 名家经验分享</a></div>
+                            <div class="article-item-meta"><span>养护</span> · <span>2026-06-03</span></div>
+                        </div>
+                    </div>
+                    <div class="article-item">
+                        <div class="article-item-img">图</div>
+                        <div class="article-item-body">
+                            <div class="article-item-title"><a href="#">春季赛后种鸽配对黄金期注意事项</a></div>
+                            <div class="article-item-meta"><span>育种</span> · <span>2026-05-30</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 热门品系 ===== -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-title"><i class="fas fa-tags"></i> 热门品系</div>
+    </div>
+    <div class="strain-tags">
+        <a href="#" class="strain-tag">詹森</a>
+        <a href="#" class="strain-tag">胡本</a>
+        <a href="#" class="strain-tag">凡龙</a>
+        <a href="#" class="strain-tag">盖比</a>
+        <a href="#" class="strain-tag">考夫曼</a>
+        <a href="#" class="strain-tag">奶酪</a>
+        <a href="#" class="strain-tag">桑杰士</a>
+        <a href="#" class="strain-tag">克拉克</a>
+        <a href="#" class="strain-tag">电脑</a>
+        <a href="#" class="strain-tag">戈马利</a>
+    </div>
+</section>
+
+<!-- ===== 鸽友圈动态 ===== -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-title"><i class="fas fa-users"></i> 鸽友圈</div>
+        <a href="/dynamic/" class="section-more">查看全部 →</a>
+    </div>
+    <div class="circle-list">
+        <div class="circle-item">
+            <div class="circle-item-header">
+                <div class="circle-item-avatar">张</div>
+                <div class="circle-item-user">老张鸽舍</div>
+                <div class="circle-item-time">2小时前</div>
+            </div>
+            <div class="circle-item-content">
+                今天带小将们训放30公里，风向西南，归巢率90%，状态不错！准备下周开始50公里训放。大家有什么好的建议吗？
+            </div>
+            <div class="circle-item-actions">
+                <span>❤️ 12</span>
+                <span>💬 3</span>
+            </div>
+        </div>
+        <div class="circle-item">
+            <div class="circle-item-header">
+                <div class="circle-item-avatar">李</div>
+                <div class="circle-item-user">蓝天鸽舍</div>
+                <div class="circle-item-time">5小时前</div>
+            </div>
+            <div class="circle-item-content">
+                新入一对种鸽，血统是凡龙×詹森，期待今年的配对成果！有没有同样用这个配对的鸽友，交流一下经验。
+            </div>
+            <div class="circle-item-actions">
+                <span>❤️ 8</span>
+                <span>💬 5</span>
+            </div>
+        </div>
+        <div class="circle-item">
+            <div class="circle-item-header">
+                <div class="circle-item-avatar">王</div>
+                <div class="circle-item-user">中原铭鸽</div>
+                <div class="circle-item-time">1天前</div>
+            </div>
+            <div class="circle-item-content">
+                公棚春赛成绩出来了，我们的鸽子拿了第7名！虽然没进前三，但已经很满意了。感谢大家的关注和支持！
+            </div>
+            <div class="circle-item-actions">
+                <span>❤️ 24</span>
+                <span>💬 7</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 页脚广告位 ===== -->
+<div class="ad-banner" style="margin-bottom:0;">
+    <div class="ad-banner-label">商家入驻</div>
+    <div class="ad-banner-title">免费认领您的公棚或展厅</div>
+    <div class="ad-banner-desc">完善信息、上传图片、让更多鸽友找到您</div>
+</div>
+
+<!-- ===== 页脚 ===== -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>信鸽之家</h4>
+                <a href="/">首页</a>
+                <a href="/pigeon/">铭鸽</a>
+                <a href="/shop/">展厅</a>
+                <a href="/loft/">公棚</a>
+            </div>
+            <div class="footer-col">
+                <h4>信息服务</h4>
+                <a href="/race/">赛事成绩</a>
+                <a href="/article/">资讯</a>
+                <a href="/dynamic/">鸽友圈</a>
+                <a href="/search/">搜索</a>
+            </div>
+            <div class="footer-col">
+                <h4>商家服务</h4>
+                <a href="/claim/">认领公棚/展厅</a>
+                <a href="/membership/">会员方案</a>
+                <a href="/help/">帮助中心</a>
+            </div>
+            <div class="footer-col">
+                <h4>关于我们</h4>
+                <a href="/about/">关于信鸽之家</a>
+                <a href="/contact/">联系方式</a>
+                <a href="/privacy/">隐私政策</a>
+                <a href="/terms/">用户协议</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 信鸽之家 xgjia.com · 京ICP备XXXXXXXX号
+        </div>
+    </div>
+</footer>
+
+<script>
+function toggleMobileNav() {
+    var nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+}
+</script>
+</body>
+</html>

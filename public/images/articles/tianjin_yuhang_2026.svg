@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a237e"/>
+      <stop offset="100%" style="stop-color:#283593"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a84c"/>
+      <stop offset="100%" style="stop-color:#e8c860"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <circle cx="680" cy="80" r="120" fill="rgba(201,168,76,0.08)"/>
+  <circle cx="100" cy="420" r="80" fill="rgba(255,255,255,0.05)"/>
+  <rect x="0" y="0" width="800" height="4" fill="url(#accent)"/>
+  <text x="50" y="110" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffffff">天津宇航VIP公棚</text>
+  <text x="50" y="160" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#c9a84c">4冠领跑天津 · 均速1509.9</text>
+  <rect x="50" y="180" width="300" height="3" fill="#c9a84c"/>
+  <text x="50" y="220" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.85)">505km决赛1875.1创天津最高分速</text>
+  <rect x="50" y="260" width="130" height="65" rx="6" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="115" y="290" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#c9a84c" text-anchor="middle">4冠</text>
+  <text x="115" y="312" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle">天津第1</text>
+  <rect x="200" y="260" width="130" height="65" rx="6" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="265" y="290" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#c9a84c" text-anchor="middle">1875.1</text>
+  <text x="265" y="312" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle">决赛分速</text>
+  <rect x="350" y="260" width="130" height="65" rx="6" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="415" y="290" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#c9a84c" text-anchor="middle">4948羽</text>
+  <text x="415" y="312" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle">决赛参赛</text>
+  <text x="50" y="380" font-family="Arial, sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">良羽鸽业孙增建505km决赛夺冠 · 全国500km级第4</text>
+  <text x="50" y="420" font-family="Arial, sans-serif" font-size="12" fill="rgba(255,255,255,0.4)">宇航VIP vs 津蓿 · 天津双雄争霸</text>
+  <text x="50" y="460" font-family="Arial, sans-serif" font-size="12" fill="rgba(255,255,255,0.3)">信鸽之家 · 数据为本</text>
+</svg>
