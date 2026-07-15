@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<defs>
+<linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#0f2027"/>
+<stop offset="50%" style="stop-color:#203a43"/>
+<stop offset="100%" style="stop-color:#2c5364"/>
+</linearGradient>
+<linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" style="stop-color:#f79711"/>
+<stop offset="100%" style="stop-color:#ffed4e"/>
+</linearGradient>
+</defs>
+<rect width="800" height="500" fill="url(#bg)" rx="16"/>
+<!-- Shield icon -->
+<path d="M400,80 L480,110 L480,190 C480,250 445,290 400,310 C355,290 320,250 320,190 L320,110 Z" fill="none" stroke="#f79711" stroke-width="4" opacity="0.9"/>
+<path d="M370,200 L392,225 L435,170" fill="none" stroke="#ffed4e" stroke-width="5" opacity="0.9"/>
+<!-- Syringe hint -->
+<line x1="520" y1="120" x2="580" y2="180" stroke="#c9a84c" stroke-width="4" opacity="0.7"/>
+<rect x="510" y="110" width="20" height="12" fill="#c9a84c" opacity="0.7" transform="rotate(45 520 116)"/>
+<!-- Drop -->
+<path d="M250,160 C250,180 235,200 235,210 A15,15 0 0 0 265,210 C265,200 250,180 250,160 Z" fill="#ffed4e" opacity="0.8"/>
+<!-- Pigeon silhouette -->
+<ellipse cx="400" cy="350" rx="46" ry="32" fill="#c9a84c" opacity="0.3"/>
+<text x="400" y="460" text-anchor="middle" font-size="24" fill="#ffed4e" font-weight="bold" font-family="sans-serif">新城疫疫苗</text>
+</svg>

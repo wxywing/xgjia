@@ -1,0 +1,50 @@
+# 运行时文件
+cache/
+logs/
+data/
+.DS_Store
+*.DS_Store
+
+# 敏感配置（改名为模板后再忽略原文件）
+app/config/config.php
+
+# 大数据文件
+database/xgjia_all.sql
+database/update_articles_content_all.sql
+database/update_articles_content_batch2.sql
+
+# 爬虫数据
+scripts/*.json
+scripts/products_detail.json
+scripts/news_articles.json
+scripts/races_p0_checkpoint.json
+scripts/races_p0.json
+scripts/lofts_detail_v4.json
+
+# 视频产物
+scripts/video/
+scripts/*.mp4
+scripts/*.aiff
+
+# 任务截图/临时文件
+docs/tasks/*.jpg
+docs/tasks/*.png
+
+# 备份文件
+*.bak
+*.bak.*
+
+# 宝塔/环境
+.htaccess
+.env*
+
+# 临时迁移脚本（上线后删除）
+_add_*.php
+_update_*.php
+_backfill_*.php
+_migrate_*.php
+_setup_*.php
+_import_*.php
+_clean_*.php
+_diag_*.php
+_seed_*.sql

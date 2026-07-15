@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a237e"/>
+      <stop offset="100%" style="stop-color:#283593"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a84c"/>
+      <stop offset="100%" style="stop-color:#e8c860"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <circle cx="680" cy="80" r="120" fill="rgba(201,168,76,0.08)"/>
+  <circle cx="100" cy="420" r="80" fill="rgba(255,255,255,0.05)"/>
+  <rect x="0" y="0" width="800" height="4" fill="url(#accent)"/>
+  <text x="50" y="130" font-family="Arial, sans-serif" font-size="38" font-weight="bold" fill="#ffffff">河北公棚冠军鸽</text>
+  <text x="50" y="180" font-family="Arial, sans-serif" font-size="38" font-weight="bold" fill="#c9a84c">TOP10</text>
+  <rect x="50" y="210" width="200" height="3" fill="#c9a84c"/>
+  <text x="50" y="250" font-family="Arial, sans-serif" font-size="18" fill="rgba(255,255,255,0.85)">2026年春棚赛季 · 全国冠军第1省</text>
+  <rect x="50" y="300" width="130" height="65" rx="6" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="115" y="330" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#c9a84c" text-anchor="middle">20羽</text>
+  <text x="115" y="352" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle">冠军总数</text>
+  <rect x="200" y="300" width="130" height="65" rx="6" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="265" y="330" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#c9a84c" text-anchor="middle">1528.5</text>
+  <text x="265" y="352" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle">平均分速</text>
+  <rect x="350" y="300" width="130" height="65" rx="6" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="415" y="330" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#c9a84c" text-anchor="middle">10家</text>
+  <text x="415" y="352" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle">参赛公棚</text>
+  <text x="50" y="420" font-family="Arial, sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">陆翔4冠 · 展翔3冠 · 永恒鸽苑两棚夺冠</text>
+  <text x="50" y="460" font-family="Arial, sans-serif" font-size="12" fill="rgba(255,255,255,0.3)">信鸽之家 · 数据为本</text>
+</svg>

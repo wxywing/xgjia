@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a3a5c"/>
+      <stop offset="100%" style="stop-color:#0d2137"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a84c"/>
+      <stop offset="100%" style="stop-color:#e8c84a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="60" y="420" width="100" height="4" rx="2" fill="url(#accent)"/>
+  <text x="60" y="200" font-family="sans-serif" font-size="42" font-weight="bold" fill="#ffffff">
+    <tspan x="60" dy="0">赛鸽配对指南</tspan>
+    <tspan x="60" dy="55" font-size="32" fill="#c9a84c">血统搭配与育种技巧全解析</tspan>
+  </text>
+  <text x="60" y="350" font-family="sans-serif" font-size="16" fill="rgba(255,255,255,0.6)">近亲配 · 远亲配 · 杂交优势 · 回血保种 · 实战配对</text>
+  <text x="60" y="460" font-family="sans-serif" font-size="14" fill="rgba(255,255,255,0.4)">信鸽之家 · 技术交流</text>
+  <!-- gene symbols -->
+  <text x="630" y="260" font-family="sans-serif" font-size="28" font-weight="bold" fill="rgba(201,168,76,0.3)">A B</text>
+  <line x1="630" y1="270" x2="680" y2="270" stroke="rgba(201,168,76,0.2)" stroke-width="1.5"/>
+  <text x="660" y="260" font-family="sans-serif" font-size="28" font-weight="bold" fill="rgba(201,168,76,0.3)">C D</text>
+  <line x1="645" y1="280" x2="645" y2="310" stroke="rgba(201,168,76,0.2)" stroke-width="1.5"/>
+  <text x="630" y="330" font-family="sans-serif" font-size="28" font-weight="bold" fill="#c9a84c">AC</text>
+  <text x="670" y="330" font-family="sans-serif" font-size="28" font-weight="bold" fill="#c9a84c">BD</text>
+  <line x1="615" y1="260" x2="615" y2="305" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+  <line x1="695" y1="260" x2="695" y2="305" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+</svg>

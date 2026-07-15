@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a3a5c"/>
+      <stop offset="100%" style="stop-color:#0d2137"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a84c"/>
+      <stop offset="100%" style="stop-color:#e8c84a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="60" y="420" width="100" height="4" rx="2" fill="url(#accent)"/>
+  <text x="60" y="200" font-family="sans-serif" font-size="42" font-weight="bold" fill="#ffffff">
+    <tspan x="60" dy="0">新手怎么选公棚？</tspan>
+    <tspan x="60" dy="55" font-size="32" fill="#c9a84c">5个数据指标帮你避坑</tspan>
+  </text>
+  <text x="60" y="350" font-family="sans-serif" font-size="16" fill="rgba(255,255,255,0.6)">返巢率 · 奖金兑现 · 参赛费用 · 距离匹配 · 历史口碑</text>
+  <text x="60" y="460" font-family="sans-serif" font-size="14" fill="rgba(255,255,255,0.4)">信鸽之家 · 技术交流</text>
+  <!-- building icons -->
+  <rect x="620" y="260" width="60" height="80" rx="4" fill="rgba(201,168,76,0.15)"/>
+  <rect x="635" y="230" width="30" height="35" rx="2" fill="rgba(201,168,76,0.2)"/>
+  <rect x="650" y="310" width="70" height="50" rx="3" fill="rgba(201,168,76,0.1)"/>
+  <polygon points="650,270 620,300 680,300" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="2"/>
+</svg>

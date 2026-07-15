@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<defs>
+<linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#0a1628"/>
+<stop offset="50%" style="stop-color:#1a3a5f"/>
+<stop offset="100%" style="stop-color:#0f2a4a"/>
+</linearGradient>
+<linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" style="stop-color:#c9a84c"/>
+<stop offset="100%" style="stop-color:#ffd700"/>
+</linearGradient>
+</defs>
+<rect width="800" height="500" fill="url(#bg)" rx="16"/>
+<!-- Podium / Ranking -->
+<rect x="180" y="320" width="80" height="100" rx="6" fill="#c9a84c" opacity="0.3"/>
+<rect x="280" y="270" width="80" height="150" rx="6" fill="#c9a84c" opacity="0.5"/>
+<rect x="380" y="340" width="80" height="80" rx="6" fill="#c9a84c" opacity="0.35"/>
+<!-- Podium labels -->
+<rect x="280" y="265" width="80" height="6" rx="3" fill="#ffd700" opacity="0.8"/>
+<rect x="180" y="315" width="80" height="6" rx="3" fill="#c9a84c" opacity="0.6"/>
+<rect x="380" y="335" width="80" height="6" rx="3" fill="#c9a84c" opacity="0.6"/>
+<!-- Data lines (trend) -->
+<path d="M100,200 Q180,160 260,230 Q340,120 420,200 Q500,90 580,150" fill="none" stroke="#c9a84c" stroke-width="3" opacity="0.6"/>
+<circle cx="260" cy="230" r="5" fill="#ffd700" opacity="0.8"/>
+<circle cx="420" cy="200" r="5" fill="#ffd700" opacity="0.8"/>
+<circle cx="580" cy="150" r="5" fill="#ffd700" opacity="0.8"/>
+<!-- Bar chart -->
+<rect x="100" y="100" width="20" height="80" rx="3" fill="#c9a84c" opacity="0.4"/>
+<rect x="130" y="130" width="20" height="50" rx="3" fill="#c9a84c" opacity="0.3"/>
+<rect x="160" y="90" width="20" height="90" rx="3" fill="#c9a84c" opacity="0.5"/>
+<rect x="190" y="110" width="20" height="70" rx="3" fill="#c9a84c" opacity="0.35"/>
+<!-- Percentage circle -->
+<circle cx="700" cy="160" r="50" fill="none" stroke="#c9a84c" stroke-width="4" opacity="0.5"/>
+<path d="M700,160 L700,120 A40,40 0 0,1 728,188" fill="none" stroke="#ffd700" stroke-width="4" opacity="0.7"/>
+<text x="700" y="168" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#ffd700">12%</text>
+<text x="700" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#c9a84c" opacity="0.7">录取率</text>
+<!-- Small pigeon -->
+<path d="M90,60 Q95,50 105,48 Q112,46 115,52 Q118,56 115,58" fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.5"/>
+<!-- Regional labels -->
+<text x="350" y="440" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#c9a84c" opacity="0.6">河北 · 山东 · 江浙 · 广东</text>
+<!-- Title -->
+<text x="400" y="470" text-anchor="middle" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#fff">公棚竞争激烈排名</text>
+<text x="400" y="490" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#c9a84c">参赛羽数 · 录取率 · 全面分析</text>
+</svg>

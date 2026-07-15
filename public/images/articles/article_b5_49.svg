@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<defs>
+<linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#0f2027"/>
+<stop offset="50%" style="stop-color:#203a43"/>
+<stop offset="100%" style="stop-color:#2c5364"/>
+</linearGradient>
+<linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" style="stop-color:#f79711"/>
+<stop offset="100%" style="stop-color:#ffed4e"/>
+</linearGradient>
+</defs>
+<rect width="800" height="500" fill="url(#bg)" rx="16"/>
+<!-- Compass / direction icon -->
+<circle cx="400" cy="200" r="90" fill="none" stroke="#f79711" stroke-width="4" opacity="0.9"/>
+<circle cx="400" cy="200" r="70" fill="none" stroke="#ffed4e" stroke-width="2" opacity="0.5"/>
+<polygon points="400,130 420,200 400,210 380,200" fill="#ffed4e" opacity="0.9"/>
+<polygon points="400,270 380,200 400,190 420,200" fill="#c9a84c" opacity="0.7"/>
+<!-- Distance markers -->
+<line x1="400" y1="200" x2="550" y2="150" stroke="#f79711" stroke-width="3" opacity="0.8"/>
+<circle cx="550" cy="150" r="8" fill="#ffed4e"/>
+<text x="565" y="145" font-size="20" fill="#ffed4e" font-weight="bold" font-family="sans-serif">5km</text>
+<line x1="400" y1="200" x2="570" y2="250" stroke="#f79711" stroke-width="3" opacity="0.6"/>
+<circle cx="570" cy="250" r="8" fill="#c9a84c"/>
+<text x="585" y="255" font-size="20" fill="#c9a84c" font-weight="bold" font-family="sans-serif">30km</text>
+<!-- Pigeon silhouette -->
+<ellipse cx="400" cy="340" rx="46" ry="32" fill="#c9a84c" opacity="0.3"/>
+<text x="400" y="460" text-anchor="middle" font-size="26" fill="#ffed4e" font-weight="bold" font-family="sans-serif">秋季训放</text>
+</svg>
