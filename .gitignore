@@ -48,3 +48,17 @@ _import_*.php
 _clean_*.php
 _diag_*.php
 _seed_*.sql
+
+# SSL证书（包含私钥和密码，禁止任何形式上传）
+www.xgjia.com_*.pem
+www.xgjia.com_*.key
+www.xgjia.com_*.pfx
+www.xgjia.com_*/password.txt
+*/password.txt
+
+# API凭证
+scripts/.baidu_token
+scripts/.indexnow_key
+
+# 日志文件
+*.log
