@@ -1,0 +1,32 @@
+# Code of Conduct
+
+## Our Pledge
+
+We are committed to making participation in this project a harassment-free experience for everyone.
+
+## Our Standards
+
+Examples of behavior that contributes to a positive environment:
+
+- Using welcoming and inclusive language
+- Being respectful of differing viewpoints and experiences
+- Gracefully accepting constructive criticism
+- Focusing on what is best for the community
+
+Examples of unacceptable behavior:
+
+- Harassment or discrimination of any kind
+- Personal attacks or derogatory comments
+- Publishing others' private information without permission
+
+## Enforcement
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to:
+- **微信**: yingzaovip
+- **邮箱**: wxywing@gmail.com
+
+All complaints will be reviewed and investigated and will result in a response that is deemed necessary.
+
+## Attribution
+
+This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/), version 2.1.
