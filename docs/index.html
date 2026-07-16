@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信鸽之家 - 中国赛鸽数据平台 | GitHub</title>
+  <meta name="description" content="信鸽之家（xgjia.com）中国赛鸽赛事数据平台，提供1270万条赛绩查询、549家公棚对比、足环追踪、血统证书生成。源码开源，欢迎贡献。">
+  <meta name="robots" content="noindex">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0d1b2a;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; margin: 4px; }
+    .badge-blue { background: #1a5fa8; color: #fff; }
+    .badge-gold { background: #c9a84c; color: #0d1b2a; font-weight: bold; }
+    .badge-green { background: #2e7d32; color: #fff; }
+    h1 { font-size: 2.5rem; margin: 1rem 0; color: #fff; }
+    .subtitle { color: #aaa; font-size: 1.1rem; margin-bottom: 2rem; max-width: 500px; }
+    .stats { display: flex; gap: 2rem; margin: 2rem 0; flex-wrap: wrap; justify-content: center; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: bold; color: #c9a84c; }
+    .stat-label { font-size: 0.85rem; color: #888; }
+    .cta {
+      display: inline-block;
+      background: #1a5fa8;
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      margin: 1rem 0.5rem;
+      transition: background 0.2s;
+    }
+    .cta:hover { background: #145a9e; }
+    .cta-outline {
+      background: transparent;
+      border: 2px solid #c9a84c;
+      color: #c9a84c;
+    }
+    .cta-outline:hover { background: #c9a84c; color: #0d1b2a; }
+    .features { display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; justify-content: center; max-width: 600px; }
+    .feature { background: #1a2d42; padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; color: #ccc; }
+    footer { margin-top: 3rem; color: #555; font-size: 0.8rem; }
+    footer a { color: #888; text-decoration: none; }
+    .redirect-note { margin-top: 1rem; font-size: 0.75rem; color: #666; }
+  </style>
+</head>
+<body>
+  <div>
+    <span class="badge badge-blue">GitHub 源码</span>
+    <span class="badge badge-gold">开源 MIT</span>
+    <span class="badge badge-green">PHP 7.3+</span>
+  </div>
+
+  <h1>信鸽之家</h1>
+  <p class="subtitle">中国赛鸽赛事数据平台 · 收录 1270 万条赛绩记录</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">1270万+</div><div class="stat-label">赛事成绩</div></div>
+    <div class="stat"><div class="stat-num">2872</div><div class="stat-label">赛事场次</div></div>
+    <div class="stat"><div class="stat-num">549</div><div class="stat-label">公棚数据</div></div>
+    <div class="stat"><div class="stat-num">10359</div><div class="stat-label">铭鸽档案</div></div>
+  </div>
+
+  <div class="features">
+    <div class="feature">🔍 足环号追踪</div>
+    <div class="feature">📊 公棚对比</div>
+    <div class="feature">📄 血统证书</div>
+    <div class="feature">🏙️ 城市赛事中心</div>
+  </div>
+
+  <div>
+    <a href="https://www.xgjia.com" class="cta">访问官网 →</a>
+    <a href="https://github.com/wxywing/xgjia" class="cta cta-outline">查看源码</a>
+  </div>
+
+  <p class="redirect-note">本页面为 GitHub Pages 展示页，完整功能请访问 xgjia.com</p>
+
+  <footer>
+    <a href="https://www.xgjia.com">xgjia.com</a> · 
+    微信: yingzaovip · 
+    <a href="https://github.com/wxywing/xgjia">GitHub</a>
+  </footer>
+</body>
+</html>
