@@ -91,6 +91,6 @@ MIT License - 可自由使用于个人或商业项目，但请保留署名。
 
 <p align="center">
   <strong>🌐 官网</strong>：<a href="https://www.xgjia.com">https://www.xgjia.com</a><br>
-  <strong>💬 联系</strong>：微信 pigeon_cs<br>
+  <strong>💬 联系</strong>：微信 yingzaovip<br>
   <strong>📂 源码</strong>：<a href="https://github.com/wxywing/xgjia">GitHub</a>
 </p>
