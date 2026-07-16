@@ -66,3 +66,4 @@ scripts/.indexnow_key
 # 数据库迁移脚本（本地开发用，不上传）
 database/
 scripts/
+scripts/xgjia_incremental_20260624.sql
